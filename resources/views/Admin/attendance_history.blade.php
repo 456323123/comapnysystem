@@ -19,12 +19,13 @@
                           <table class="table zero-configuration">
                               <thead>
                                   <tr>
-                                      <th>#id</th>
-                                      <th>User id</th>
-                                      <th>Start Time</th>
-                                      <th>End Time</th>
-                                      <th>Date</th>
-                                      <th>Over Time</th>
+                                    <th>#id</th>
+                                    <th>Employee Name</th>
+                                    <th>In Time</th>
+                                    <th>Out Time</th>
+                                    <th>Work Time</th>
+                                    <th>Basic Hours</th>
+                                    <th>Over Time</th>
                                       <th>Action</th>
                                   </tr>
                               </thead>
@@ -38,12 +39,14 @@
                                 $user_name=Auth::user()->first_name;
                             @endphp
                                   <tr>
-                                      <td>{{$i++}}</td>
-                                      <td>{{$list->user_id}}</td>
-                                      <td>{{$list->start_time}}</td>
-                                      <td>{{$list->end_time}}</td>
-                                      <td>{{$list->date}}</td>
-                                      <td>{{$list->overtime}}</td>
+                                    <td>{{$i++}}</td>
+                                    <td>{{$list->first_name}}</td>
+                                    <td>{{$list->date}} - {{$list->start_time}}</td>
+                                    <td>{{$list->date}} - {{$list->end_time}}</td>
+                                    <td>{{number_format((float)$list->work_time, 2, '.', '')}}</td>
+                                    <td>08:00:00</td>
+                                      <td>{{number_format((float)$list->overtime, 2, '.', '')}}</td>
+
                                       <td>
                                         @if($list->status != 0)
                                         <div class="col-3">

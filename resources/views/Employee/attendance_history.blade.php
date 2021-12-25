@@ -15,10 +15,11 @@
                               <thead>
                                   <tr>
                                       <th>#id</th>
-                                      <th>Name</th>
-                                      <th>Start Time</th>
-                                      <th>End Time</th>
-                                      <th>Date</th>
+                                      <th>Employee Name</th>
+                                      <th>In Time</th>
+                                      <th>Out Time</th>
+                                      <th>Work Time</th>
+                                      <th>Basic Hours</th>
                                       <th>Over Time</th>
                                   </tr>
                               </thead>
@@ -31,11 +32,15 @@
                                   <tr>
                                       <td>{{$i++}}</td>
                                       <td>{{$user_name}}</td>
-                                      <td>{{$list->start_time}}</td>
-                                      <td>{{$list->end_time}}</td>
-                                      <td>{{$list->date}}</td>
-                                      <td>{{$list->overtime}}</td>
-                                  
+                                      <td>{{$list->date}} - {{$list->start_time}}</td>
+                                      <td>{{$list->date}} - {{$list->end_time}}</td>
+                                      <td>{{number_format((float)$list->work_time, 2, '.', '')}}</td>
+                                      <td>08:00:00</td>
+                                      @if($list->status == 0)
+                                      <td>00:00:00</td>
+                                        @else
+                                        <td>{{number_format((float)$list->overtime, 2, '.', '')}}</td>
+                                        @endif
                                   </tr>
                                 @endforeach  
                               </tbody>

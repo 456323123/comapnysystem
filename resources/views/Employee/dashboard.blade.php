@@ -154,36 +154,49 @@ html {
     <div class="row">
 
        
-        <div class="col-6">
+        <div class="col-5 my-5">
             <form action="{{url('employee/start-time')}}" method="post">
                 @csrf
                 <div class="form-group">
-                  <input type="time" name="start_time" class="form-control  @error('start_time') is-invalid @enderror"  >
+                  <label for="first-name-icon">In Time</label>
+                  <div class="position-relative has-icon-left">
+                    <input type="time" name="start_time" class="form-control  @error('start_time') is-invalid @enderror"  >
                     @error('start_time')
                     <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div>
-                <div class="form-group">
+                  </div>
+                
+              </div>
+               
+              <div class="form-group">
+                <label for="first-name-icon">Out Time</label>
+                <div class="position-relative has-icon-left">
                   <input type="time" name="end_time" class="form-control  @error('end_time') is-invalid @enderror"  >
                   @error('end_time')
-                    <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>  
+                <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+                </div>
+               
+            </div>
+                
             <button type="submit" class="btn btn-primary mb-2">Mark Your Attendence</button>
             @if ($message = Session::get('success'))
             <div class="text-success ">    
                 <strong>{{ $message }}</strong>
             </div>
-            @endif   
+            @endif 
+           
+
+            
           </form>
         </div>
 
 
-        <div class="col-6">
+        <div class="col-7">
 <div class="clock">
 
 
