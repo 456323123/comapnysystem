@@ -153,11 +153,12 @@ html {
 
     <div class="row">
 
-       
-        <div class="col-5 my-5">
+        <div class="col-3 my-5">
             <form action="{{url('employee/start-time')}}" method="post">
                 @csrf
-                <div class="form-group">
+                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+
+                {{-- <div class="form-group">
                   <label for="first-name-icon">In Time</label>
                   <div class="position-relative has-icon-left">
                     <input type="time" name="start_time" class="form-control  @error('start_time') is-invalid @enderror"  >
@@ -168,9 +169,9 @@ html {
                     @enderror
                   </div>
                 
-              </div>
+              </div> --}}
                
-              <div class="form-group">
+              {{-- <div class="form-group">
                 <label for="first-name-icon">Out Time</label>
                 <div class="position-relative has-icon-left">
                   <input type="time" name="end_time" class="form-control  @error('end_time') is-invalid @enderror"  >
@@ -181,9 +182,41 @@ html {
                 @enderror
                 </div>
                
-            </div>
-                
-            <button type="submit" class="btn btn-primary mb-2">Mark Your Attendence</button>
+            </div> --}}
+                @if(isset($start_time->id))
+                <button type="submit" disabled class="btn btn-success mb-2"> {{$start_time->start_time}}</button>
+                <p>In Time</p>
+
+                @else
+            <button type="submit" class="btn btn-primary mb-2">In Time Attendence</button>
+            @endif
+          </form>
+        </div>
+        <div class="col-3 my-5">
+          <form action="{{url('employee/end-time')}}" method="post">
+            @csrf
+            @if(isset($start_time->id))
+            <input type="hidden" name="atten_id" value="{{$start_time->id}}">
+
+
+            @else
+            <input type="hidden" name="atten_id" value="0">
+        @endif
+            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+            @if(isset($start_time->end_time))
+            <button type="submit" disabled class="btn btn-success mb-2"> {{$start_time->end_time}}</button>
+            <p>Out Time</p>
+
+            @else
+            @if(isset($start_time->start_time))
+
+            <button type="submit" class="btn btn-primary mb-2">Out Time Attendence</button>
+            @else
+            <button type="submit" disabled class="btn btn-primary mb-2">Out Time Attendence</button>
+
+            @endif
+            @endif
+      </form>
             @if ($message = Session::get('success'))
             <div class="text-success ">    
                 <strong>{{ $message }}</strong>
@@ -192,11 +225,10 @@ html {
            
 
             
-          </form>
         </div>
 
 
-        <div class="col-7">
+        <div class="col-6">
 <div class="clock">
 
 

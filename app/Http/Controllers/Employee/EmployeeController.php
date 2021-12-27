@@ -7,14 +7,19 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Attendence;
 use Illuminate\Support\Facades\Auth;
+use phpDocumentor\Reflection\Types\Null_;
 
 class EmployeeController extends Controller
 {
     
         public function dashboard()
         {
-         
-            return view('Employee.dashboard');
+            $user_id=Auth::user()->id;
+            $c_date=date('Y-m-d'); 
+            $user_atten['start_time']=Attendence::where('user_id',$user_id)->where('date',$c_date)->first();
+
+
+            return view('Employee.dashboard',$user_atten);
         }
         public function attendance_history()
         {
@@ -23,51 +28,45 @@ class EmployeeController extends Controller
             return view('Employee.attendance_history',$atten_emp);
         }
         
-        public function starttime(Request $request){
-            $request->validate([
-                'start_time' => 'required',
-                'end_time' => 'required'
+        public function endtime(Request $request){
+            // $request->validate([
+            //     'start_time' => 'required',
+            //     'end_time' => 'required'
                    
-            ]);
-            $user_id=Auth::user()->id;
-           
+            // ]);
+           // $user_id=Auth::user()->id;
+           $user_id=$request->user_id;
+           $atten_id=$request->atten_id;
+
+           $In_time_update=Attendence::find($atten_id);
             $todayDate = Carbon::now()->format('d-m-Y');
-            $c_date=date('Y-m-d'); 
-            //echo Carbon::parse('2000-01-01 12:00')->floatDiffInDays('2000-02-11 06:00');     // 40.75
-            //echo Carbon::parse('06:01:23.252987')->floatDiffInSeconds('06:02:34.321450');    // 71.068463
-            //echo Carbon::parse($start_time)->floatDiffInMinutes($end_time); 
-                             // 1.1833333333333
-            // $end_time = date('h:i:s A', strtotime($start_time)+$hours); 
-            $start_time = date('h:i:s A', strtotime($request->start_time)); 
-            $end_time = date('h:i:s A', strtotime($request->end_time)); 
- 
-            $total_time_hours= Carbon::parse( $start_time)->floatDiffInHours($end_time, false); 
+            $c_time=date('h:i:s A');
+            $c_date=date('Y-m-d');  
+
+            $end_time = date('h:i:s A', strtotime($c_time));  
+            $total_time_hours= Carbon::parse( $In_time_update->start_time)->floatDiffInHours($end_time, false); 
             $total_hours =$total_time_hours-8;
             $check_atten_one_time=Attendence::where('user_id',$user_id)->where('date',$c_date)->first();
-            if(!isset($check_atten_one_time))
+            if(isset($check_atten_one_time))
             {
              if($total_time_hours > 8)
             {
-                $atten=new Attendence();
-                $atten->user_id=$user_id;
-                $atten->start_time=$start_time;
-                $atten->end_time=$end_time;
-                $atten->date=$c_date;
-                $atten->work_time=$total_time_hours;
-                $atten->overtime=$total_hours;
-                $atten->status=0;
-                $atten->save();
+                $In_time_update->user_id=$user_id;
+                $In_time_update->end_time=$end_time;
+                $In_time_update->date=$c_date;
+                $In_time_update->work_time=$total_time_hours;
+                $In_time_update->overtime=$total_hours;
+                $In_time_update->status=0;
+                $In_time_update->save();
 
             }else{
-                $atten=new Attendence();
-                $atten->user_id=$user_id;
-                $atten->start_time=$start_time;
-                $atten->end_time=$end_time;
-                $atten->date=$c_date;
-                $atten->work_time=$total_time_hours;
-                $atten->overtime=0;
-                $atten->status=0;
-                $atten->save();
+                $In_time_update->user_id=$user_id;
+                $In_time_update->end_time=$end_time;
+                $In_time_update->date=$c_date;
+                $In_time_update->work_time=$total_time_hours;
+                $In_time_update->overtime=0;
+                $In_time_update->status=0;
+                $In_time_update->save();
             }
             return redirect()->back()->with('success','Your attendance successfully!');
             }else{
@@ -77,5 +76,28 @@ class EmployeeController extends Controller
             
             // dd( $total_time_hours,$end_time);
            
+        }
+        public function starttime(Request $request){
+            $user_id=$request->user_id;
+            $c_date=date('Y-m-d');  
+            $c_time=date('h:i:s A');
+            $start_time = date('h:i:s A', strtotime($c_time));  
+            $check_atten_one_time=Attendence::where('user_id',$user_id)->where('date',$c_date)->first();
+            if(!isset($check_atten_one_time))
+            {
+            $atten=new Attendence();
+            $atten->user_id=$user_id;
+            $atten->start_time=$start_time;
+            $atten->date=$c_date;
+            $atten->work_time=0;
+            $atten->overtime=0;
+            $atten->status=0;
+            $atten->save();
+
+            return redirect()->back()->with('success','Your attendance successfully!');
+        }else{
+            return redirect()->back()->with('error','Your attendance Already Done!');
+
+        }
         }
 }

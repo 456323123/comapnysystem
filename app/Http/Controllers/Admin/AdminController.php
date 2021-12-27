@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Attendence;
+use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Ui\Presets\React;
 
 class AdminController extends Controller
 {
@@ -16,6 +18,54 @@ class AdminController extends Controller
     {
         return view('Admin.dashboard');
     }
+    public function department()
+    {
+        $department['view_department']=Department::get();
+        return view('Admin.department',$department);
+    }
+
+    public function  add_department( Request $request)
+    {
+        $add_Department=new Department();
+        $add_Department->department=$request->department_name;
+        $add_Department->status=0;
+        $add_Department->save();
+
+        return redirect()->back()->with('success','Department successfully Addedd!');
+    }
+    public function  edit_department( Request $request,$id)
+    {
+        $edit_department=Department::find($id);
+        $edit_department->department=$request->department_name;
+        $edit_department->save();
+
+        return redirect()->back()->with('success','Department successfully Updated!');
+    }
+    public function depart_status_deactive($id)
+    {
+        $depart_status_deactive=Department::find($id);
+        $depart_status_deactive->status=0;
+        $depart_status_deactive->save();
+        return redirect()->back()->with('error','Department successfully Deactive!');
+
+    }
+    public function depart_status_active($id)
+    {
+        $depart_status_active=Department::find($id);
+        $depart_status_active->status=1;
+        $depart_status_active->save();
+        return redirect()->back()->with('success','Department successfully Active!');
+
+    }
+    public function  delete_department( Request $request,$id)
+    {
+        $delete_department=Department::find($id);
+        $delete_department->delete();
+
+        return redirect()->back()->with('error','Department successfully Deleted!');
+    }
+    
+    
     public function attendance_history()
     {
         $atten_emp['emp_atten']= DB::table('attendences')
