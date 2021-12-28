@@ -34,12 +34,24 @@
                                       <td>{{$user_name}}</td>
                                       <td>{{$list->date}} - {{$list->start_time}}</td>
                                       <td>{{$list->date}} - {{$list->end_time}}</td>
-                                      <td>{{number_format((float)$list->work_time, 2, '.', '')}}</td>
+                                      <td>
+                                          @php
+                                              $work_time=number_format((float)$list->work_time, 2, '.', '');
+                                              $per_hours=explode('.',$work_time);
+                                          @endphp
+                                      {{'0'.$per_hours[0] .':'. $per_hours[1].':'. $per_hours[1]}} 
+                                      </td>
                                       <td>08:00:00</td>
                                       @if($list->status == 0)
                                       <td>00:00:00</td>
                                         @else
-                                        <td>{{number_format((float)$list->overtime, 2, '.', '')}}</td>
+                                        <td>
+                                            @php
+                                                $overtime=number_format((float)$list->overtime, 2, '.', '');
+                                                $per_hours=explode('.',$overtime);
+                                            @endphp
+                                        {{'0'.$per_hours[0] .':'. $per_hours[1].':'. $per_hours[1]}} 
+                                        </td>
                                         @endif
                                   </tr>
                                 @endforeach  
