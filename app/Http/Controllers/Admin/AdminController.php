@@ -182,7 +182,7 @@ class AdminController extends Controller
             ];
            
             \Mail::to($request->email)->send(new TestMail($details));
-            //return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
+            return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
     }
 
     public function employeeEdit($id)
