@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,3 +57,5 @@ Route::prefix('employee')->namespace('App\\Http\\Controllers\\Employee')->group(
     Route::post('end-time', 'EmployeeController@endtime')->name('employee.endtime');
     Route::get('attendance_history', 'EmployeeController@attendance_history')->name('employee.attendance_history');
 });
+
+Route::get('Testmail','App\Http\Controllers\TestController@Testmail');

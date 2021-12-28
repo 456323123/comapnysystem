@@ -45,6 +45,9 @@ class EmployeeController extends Controller
 
             $end_time = date('h:i:s A', strtotime($c_time));  
             $total_time_hours= Carbon::parse( $In_time_update->start_time)->floatDiffInHours($end_time, false); 
+            $total_time_mint=  Carbon::parse($In_time_update->start_time)->floatDiffInMinutes($end_time,false);                    // 0.019722222222222
+
+            // dd($total_time_hours,$total_time_mint/60);
             $total_hours =$total_time_hours-8;
             $check_atten_one_time=Attendence::where('user_id',$user_id)->where('date',$c_date)->first();
             if(isset($check_atten_one_time))

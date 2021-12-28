@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Attendence;
+use App\Mail\TestMail;
+
 use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -110,10 +112,10 @@ class AdminController extends Controller
 
         $user = User::where('email',$request->email)->first();
 
-        if($user)
-        {
-            return back()->with('error','This user already exists.');
-        }
+        // if($user)
+        // {
+        //     return back()->with('error','This user already exists.');
+        // }
 
         $photo = $request->photo;
 
@@ -134,7 +136,11 @@ class AdminController extends Controller
         $img1 = time().'.'.$extension1;
 
         $bank_photo->move($folderPath1, $img1);
-
+       $request->validate([
+                'email' => 'required',
+                'nis' => 'required|max:8'
+                   
+            ]);
         User::create(
             [
                 'email' => $request->email,
@@ -170,9 +176,13 @@ class AdminController extends Controller
                 'nis' => $request->nis,
                 'user_role' => $request->user_role,
             ]);
-
-
-        return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
+            $details = [
+                'title' => 'Email and Password',
+                'body' =>'Hi '.$request->first_name.'</br>'.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
+            ];
+           
+            \Mail::to('naeemliaqatweb@gmail.com')->send(new TestMail($details));
+            //return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
     }
 
     public function employeeEdit($id)
