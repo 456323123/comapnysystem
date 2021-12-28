@@ -226,7 +226,7 @@
     @endphp
     @foreach($depart as $list)
     
-    <option value="{{$list->id}}" @if($emp->department === $list->id) selected>{{$list->department}}</option>
+    <option value="{{$list->id}}" @if ($list->id ==$emp->department) selected @endif>{{$list->department}}</option>
         @endforeach
 </select>
     <div class="form-control-position">
