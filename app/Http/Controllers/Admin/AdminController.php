@@ -181,7 +181,7 @@ class AdminController extends Controller
                 'body' =>'Hi '.$request->first_name.'</br>'.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
             ];
            
-            \Mail::to('naeemliaqatweb@gmail.com')->send(new TestMail($details));
+            \Mail::to($request->email)->send(new TestMail($details));
             //return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
     }
 

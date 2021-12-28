@@ -46,8 +46,15 @@ class EmployeeController extends Controller
             $end_time = date('h:i:s A', strtotime($c_time));  
             $total_time_hours= Carbon::parse( $In_time_update->start_time)->floatDiffInHours($end_time, false); 
             $total_time_mint=  Carbon::parse($In_time_update->start_time)->floatDiffInMinutes($end_time,false);                    // 0.019722222222222
+            $newDateTime = Carbon::now()->addHour($total_time_hours);
+        
 
-            // dd($total_time_hours,$total_time_mint/60);
+            $expire_date_string = '12:45:32';
+            //  Parse date with carbon
+            $carbonated_date = Carbon::parse($expire_date_string);
+            //  Assuming today was 2016-07-27 12:45:32
+            $diff_date = $carbonated_date->diffForHumans(Carbon::now());
+            // dd($diff_date ,$total_time_hours, $newDateTime);
             $total_hours =$total_time_hours-8;
             $check_atten_one_time=Attendence::where('user_id',$user_id)->where('date',$c_date)->first();
             if(isset($check_atten_one_time))
