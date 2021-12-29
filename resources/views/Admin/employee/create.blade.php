@@ -376,7 +376,8 @@
 <div class="form-group">
 <label for="first-name-icon">TRN</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="first-name-icon" class="form-control" name="trn" placeholder="TRN" required>
+<input type="text"   pattern="\d{8}|\d{8}"  title="Must be only 8 digit" id="first-name-icon" placeholder="Must be only 8 digit" class="form-control" name="trn" placeholder="TRN" required>
+
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>

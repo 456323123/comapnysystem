@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('title','Employee Edit')
-@section('heading','Employee Edit')
+@section('title','Employee View')
+@section('heading','Employee View')
 
 @section('content')
 {{-- <div class="col-md-4 col-12 mb-1">
@@ -66,7 +66,7 @@
 <div class="form-group">
 <label for="first-name-icon">First Name</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="first_name" placeholder="First Name" value="{{ $emp->first_name }}" required>
+<input type="text" id="first-name-icon" class="form-control" name="first_name" placeholder="First Name" value="{{ $emp->first_name }}" required disabled>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -77,7 +77,7 @@
 <div class="form-group">
 <label for="first-name-icon">Last Name</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="last_name" placeholder="Last Name" value="{{ $emp->last_name }}" required>
+<input type="text" id="first-name-icon" class="form-control" name="last_name" placeholder="Last Name" value="{{ $emp->last_name }}" required disabled>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -86,12 +86,9 @@
 </div>
 <div class="col-6">
 <div class="form-group">
-<label for="password-icon">Attn Inc Rate</label>
+<label for="email-id-icon"><i class="feather icon-camera"></i> Photo</label>
+<img src="{{ asset('uploads/employees/'.$emp->photo) }}" width="250" >
 <div class="position-relative has-icon-left">
-<input type="number" id="password-icon" class="form-control" name="attn_inc_rate" placeholder="Attn Inc Rate" max="80" value="{{ $emp->attn_inc_rate }}" required>
-<div class="form-control-position">
-<i class="feather icon-user"></i>
-</div>
 </div>
 </div>
 </div>
@@ -99,7 +96,7 @@
 <div class="form-group">
 <label for="contact-info-icon">Gender</label>
 <div class="position-relative has-icon-left">
-<select name="gender" class="form-control" id="gender" required>
+<select name="gender" class="form-control" id="gender" required disabled>
 <option value="" disabled>Select Option</option>
 <option value="male" @if($emp->gender === 'male') selected  @endif>Male</option>
 <option value="female" @if($emp->gender === 'female') selected  @endif>Female</option>
@@ -114,7 +111,7 @@
 <div class="form-group">
 <label for="contact-info-icon">Email</label>
 <div class="position-relative has-icon-left">
-<input type="email" id="contact-info-icon" class="form-control" name="email" placeholder="Email" value="{{ $emp->email }}" required>
+<input type="email" id="contact-info-icon" disabled class="form-control" name="email" placeholder="Email" value="{{ $emp->email }}" required>
 <div class="form-control-position">
 <i class="feather icon-mail"></i>
 </div>
@@ -125,7 +122,7 @@
 <div class="form-group">
 <label for="password-icon">Date of Birth</label>
 <div class="position-relative has-icon-left">
-<input type="date" id="password-icon" class="form-control" name="dob" placeholder="DOB" value="{{ date('Y-m-d', strtotime($emp->dob)) }}">
+<input type="date" id="password-icon" disabled class="form-control" name="dob" placeholder="DOB" value="{{ date('Y-m-d', strtotime($emp->dob)) }}">
 <div class="form-control-position">
 <i class="feather icon-gift"></i>
 </div>
@@ -136,7 +133,7 @@
 <div class="form-group">
 <label for="contact-info-icon">Address</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="contact-info-icon" class="form-control" name="residence_address" placeholder="Address" value="{{ $emp->residence_address }}" required>
+<input type="text" id="contact-info-icon"  disabled class="form-control" name="residence_address" placeholder="Address" value="{{ $emp->residence_address }}" required>
 <div class="form-control-position">
 <i class="feather icon-map"></i>
 </div>
@@ -147,7 +144,7 @@
 <div class="form-group">
 <label for="password-icon">Employment Status</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="password-icon" class="form-control" name="employment_status" placeholder="Employment Status" value="{{ $emp->employment_status }}" required>
+<input type="text" id="password-icon" class="form-control" disabled name="employment_status" placeholder="Employment Status" value="{{ $emp->employment_status }}" required>
 <div class="form-control-position">
 <i class="feather icon-briefcase"></i>
 </div>
@@ -158,7 +155,7 @@
 <div class="form-group">
 <label for="contact-info-icon">Hire Date</label>
 <div class="position-relative has-icon-left">
-<input type="date" id="contact-info-icon" class="form-control" name="hire_date" placeholder="Hire Date" value="{{ $emp->hire_date }}" required>
+<input type="date" id="contact-info-icon" class="form-control" disabled name="hire_date" placeholder="Hire Date" value="{{ $emp->hire_date }}" required>
 <div class="form-control-position">
 <i class="feather icon-check"></i>
 </div>
@@ -169,7 +166,7 @@
 <div class="form-group">
 <label for="password-icon">Employee ID</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="password-icon" class="form-control" name="employee_id" placeholder="Employee ID" value="{{ $emp->employee_id }}" required>
+<input type="number" id="password-icon" class="form-control" disabled name="employee_id" placeholder="Employee ID" value="{{ $emp->employee_id }}" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -181,7 +178,7 @@
 <div class="form-group">
 <label for="password-icon">Regular Hours</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="password-icon" class="form-control" name="regular_hours" placeholder="Regular Hours" value="{{ $emp->regular_hours }}" required>
+<input type="number" id="password-icon" class="form-control" disabled name="regular_hours" placeholder="Regular Hours" value="{{ $emp->regular_hours }}" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -193,7 +190,7 @@
 <div class="form-group">
 <label for="password-icon">Hourly Rate</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="password-icon" class="form-control" name="hourly_rate" placeholder="Hourly Rate" value="{{ $emp->hourly_rate }}" required>
+<input type="number" id="password-icon" class="form-control" disabled name="hourly_rate" placeholder="Hourly Rate" value="{{ $emp->hourly_rate }}" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -205,7 +202,7 @@
 <div class="form-group">
 <label for="password-icon">OT Rate</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="password-icon" class="form-control" name="ot_rate" placeholder="OT Rate" value="{{ $emp->ot_rate }}" required>
+<input type="number" id="password-icon" class="form-control"  disabled name="ot_rate" placeholder="OT Rate" value="{{ $emp->ot_rate }}" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -218,7 +215,7 @@
     <label for="password-icon">Department</label>
     <div class="position-relative has-icon-left">
     {{-- <input type="number" id="password-icon" class="form-control" name="statutory_deductions" placeholder="Statutory Deductions" required> --}}
-    <select name="department" class="form-control" id="gender" required>
+    <select name="department"disabled class="form-control" id="gender" required>
     <option value="" disabled>Select Option</option>
     @php
         $depart=App\Models\Department::where('status',1)->get();
@@ -240,7 +237,7 @@
 <label for="password-icon">Statutory Deductions</label>
 <div class="position-relative has-icon-left">
 {{-- <input type="number" id="password-icon" class="form-control" name="statutory_deductions" placeholder="Statutory Deductions" value="{{ $emp->statutory_deductions }}" required> --}}
-<select name="statutory_deductions" class="form-control" id="gender" required>
+<select disabled name="statutory_deductions" class="form-control" id="gender" required>
 <option value="" disabled>Select Option</option>
 <option value="male" @if($emp->statutory_deductions === 'applicable') selected  @endif>Applicable</option>
 <option value="female" @if($emp->statutory_deductions === 'not applicable') selected  @endif>Not Applicable</option>
@@ -251,13 +248,18 @@
 </div>
 </div>
 </div>
+
 <div class="col-6">
 <div class="form-group">
-<label for="email-id-icon">Photo</label>
-  <input type="file"  name="photo" class="form-control dropify" data-default-file="{{asset('uploads/employees/'.$emp->photo)}}">
+<label for="password-icon">Attn Inc Rate</label>
+<div class="position-relative has-icon-left">
+<input type="number" id="password-icon" disabled class="form-control" name="attn_inc_rate" placeholder="Attn Inc Rate" max="80" value="{{ $emp->attn_inc_rate }}" required>
+<div class="form-control-position">
+<i class="feather icon-user"></i>
 </div>
 </div>
-
+</div>
+</div>
 
 {{-- <div class="col-6">
 <div class="form-group">
@@ -292,7 +294,7 @@
 </div>
 
 
-<div class="tab-pane " id="ID" role="tabpanel" aria-labelledby="ID" aria-expanded="false">
+<div class="tab-pane " id="ID" role="tabpanel" aria-labelledby="ID" aria-expanded="false" >
 <section id="basic-vertical-layouts">
 <div class="row match-height">
 
@@ -307,7 +309,7 @@
 <div class="form-group">
 <label for="first-name-icon">ID Type</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="id_type" value="{{ $emp->id_type }}" placeholder="ID Type" required>
+<input type="text" id="first-name-icon" class="form-control" name="id_type" value="{{ $emp->id_type }}" disabled placeholder="ID Type" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -318,7 +320,7 @@
 <div class="form-group">
 <label for="first-name-icon">ID Number</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="first-name-icon" class="form-control" name="id_number" value="{{ $emp->id_number }}" placeholder="ID Number" required>
+<input type="number" id="first-name-icon" class="form-control" name="id_number" value="{{ $emp->id_number }}" disabled placeholder="ID Number" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -329,7 +331,7 @@
 <div class="form-group">
 <label for="first-name-icon">Bank</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="bank" value="{{ $emp->bank }}" placeholder="Bank" required>
+<input type="text" id="first-name-icon" class="form-control" name="bank" value="{{ $emp->bank }}" placeholder="Bank" required disabled>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -340,7 +342,7 @@
 <div class="form-group">
 <label for="first-name-icon">Account Number</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="first-name-icon" class="form-control" name="account_number" value="{{ $emp->account_number }}" placeholder="Account Number" required>
+<input type="number" id="first-name-icon" class="form-control" name="account_number" value="{{ $emp->account_number }}" disabled placeholder="Account Number" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -351,7 +353,7 @@
 <div class="form-group">
 <label for="first-name-icon">Branch</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="branch" value="{{ $emp->branch }}" placeholder="Branch" required>
+<input type="text" id="first-name-icon" class="form-control" name="branch" value="{{ $emp->branch }}" disabled placeholder="Branch" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -363,7 +365,7 @@
 <label for="first-name-icon">Bank Photo</label>
 <img src="{{ asset('uploads/bank_photo/'.$emp->bank_photo) }}" width="100">
 <div class="position-relative has-icon-left">
-<input type="file" id="first-name-icon" class="form-control" name="bank_photo" placeholder="Bank Photo" required>
+<input type="file" id="first-name-icon" class="form-control" name="bank_photo" placeholder="Bank Photo" disabled required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -374,8 +376,7 @@
 <div class="form-group">
 <label for="first-name-icon">TRN</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon"  pattern="\d{8}|\d{8}"  title="Must be only 8 digit" class="form-control" name="trn" value="{{ $emp->trn }}" placeholder="TRN" required>
-
+<input type="number" id="first-name-icon" class="form-control" name="trn" value="{{ $emp->trn }}" disabled placeholder="TRN" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -386,7 +387,7 @@
 <div class="form-group">
 <label for="first-name-icon">NIS</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="first-name-icon" class="form-control" name="nis" value="{{ $emp->nis }}" placeholder="NIS" required>
+<input type="number" id="first-name-icon" class="form-control" name="nis" value="{{ $emp->nis }}" disabled placeholder="NIS" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -423,7 +424,7 @@
 <div class="form-group">
 <label for="first-name-icon">Phone Number</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="phone_number" value="{{ $emp->phone_number }}" placeholder="Phone Number" required>
+<input type="text" id="first-name-icon" class="form-control" name="phone_number" value="{{ $emp->phone_number }}" disabled placeholder="Phone Number" required>
 <div class="form-control-position">
 <i class="feather icon-smartphone"></i>
 </div>
@@ -434,7 +435,7 @@
 <div class="form-group">
 <label for="first-name-icon">Emergency Contact Name</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="emergency_contact_name" value="{{ $emp->emergency_contact_name }}" placeholder="Emergency Contact Name" required>
+<input type="text" id="first-name-icon" class="form-control" name="emergency_contact_name" value="{{ $emp->emergency_contact_name }}" disabled placeholder="Emergency Contact Name" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -445,7 +446,7 @@
 <div class="form-group">
 <label for="first-name-icon">Emergency Contact Number</label>
 <div class="position-relative has-icon-left">
-<input type="number" id="first-name-icon" class="form-control"  name="emergency_contact_number" value="{{ $emp->emergency_contact_number }}" placeholder="Emergency Contact Number" required>
+<input type="number" id="first-name-icon" class="form-control"  name="emergency_contact_number" value="{{ $emp->emergency_contact_number }}" disabled placeholder="Emergency Contact Number" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -479,7 +480,7 @@
 <div class="form-group">
 <label for="first-name-icon">Education</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="education" value="{{ $emp->education }}" placeholder="Education" required>
+<input type="text" id="first-name-icon" class="form-control" name="education" value="{{ $emp->education }}" disabled placeholder="Education" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -490,7 +491,7 @@
 <div class="form-group">
 <label for="first-name-icon">Experience</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon" class="form-control" name="experience" placeholder="Experience" value="{{ $emp->experience }}" required>
+<input type="text" id="first-name-icon" class="form-control" name="experience" placeholder="Experience" disabled value="{{ $emp->experience }}" required>
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -511,8 +512,8 @@
 </section>
 </div>
 <div class="col-12">
-<button type="submit" class="btn btn-primary mr-1 ">Submit</button>
-<button type="reset" class="btn btn-outline-warning mr-1 ">Reset</button>
+{{--  <button type="submit" class="btn btn-primary mr-1 ">Submit</button>
+<button type="reset" class="btn btn-outline-warning mr-1 ">Reset</button>  --}}
 </div>
 </div>
 

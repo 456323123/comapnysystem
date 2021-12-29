@@ -18,12 +18,12 @@ html {
 } */
 
 .clock {
-  width: 30rem;
-  height: 30rem;
+  width: 23rem;
+  height: 23rem;
   position: relative;
   padding: 2rem;
   border: 7px solid #282828;
-  box-shadow: -4px -4px 10px rgba(67,67,67,0.5),
+  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
                 inset 4px 4px 10px rgba(0,0,0,0.5),
                 inset -4px -4px 10px rgba(67,67,67,0.5),
                 4px 4px 10px rgba(0,0,0,0.3);
@@ -148,13 +148,33 @@ html {
 @section('content')
 
 
+<div class="row justify-content-center">
+          <div class="col-lg-6 col-md-6">
+                            <div class="card">
+                              <div class="clock">
 
-<div class="container">
 
-    <div class="row">
+    <div class="outer-clock-face">
 
-        <div class="col-3 my-5">
-            <form action="{{url('employee/start-time')}}" method="post">
+        <div class="marking marking-one"></div>
+<div class="marking marking-two"></div>
+<div class="marking marking-three"></div>
+<div class="marking marking-four"></div>
+
+<div class="inner-clock-face">
+
+    <div class="hand hour-hand"></div>
+    <div class="hand min-hand"></div>
+    <div class="hand second-hand"></div>
+</div>
+    </div>
+</div>
+                                <div class="card-content">
+                                    <div class="card-body px-0 pb-0">
+                                        <div id="goal-overview-chart" class="mt-75"></div>
+                                        <div class="row text-center mx-0">
+                                            <div class="col-6 border-top border-right d-flex align-items-between flex-column py-1">
+         <form action="{{url('employee/start-time')}}" method="post">
                 @csrf
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
@@ -168,9 +188,9 @@ html {
                     </span>
                     @enderror
                   </div>
-                
+
               </div> --}}
-               
+
               {{-- <div class="form-group">
                 <label for="first-name-icon">Out Time</label>
                 <div class="position-relative has-icon-left">
@@ -181,7 +201,7 @@ html {
                 </span>
                 @enderror
                 </div>
-               
+
             </div> --}}
                 @if(isset($start_time->id))
                 <button type="submit" disabled class="btn btn-success mb-2"> {{$start_time->start_time}}</button>
@@ -191,9 +211,9 @@ html {
             <button type="submit" class="btn btn-primary mb-2">In Time Attendence</button>
             @endif
           </form>
-        </div>
-        <div class="col-3 my-5">
-          <form action="{{url('employee/end-time')}}" method="post">
+                                            </div>
+                                            <div class="col-6 border-top d-flex align-items-between flex-column py-1">
+                                          <form action="{{url('employee/end-time')}}" method="post">
             @csrf
             @if(isset($start_time->id))
             <input type="hidden" name="atten_id" value="{{$start_time->id}}">
@@ -217,42 +237,12 @@ html {
             @endif
             @endif
       </form>
-            @if ($message = Session::get('success'))
-            <div class="text-success ">    
-                <strong>{{ $message }}</strong>
-            </div>
-            @endif 
-           
-
-            
-        </div>
-
-
-        <div class="col-6">
-<div class="clock">
-
-
-    <div class="outer-clock-face">
-
-        <div class="marking marking-one"></div>
-<div class="marking marking-two"></div>
-<div class="marking marking-three"></div>
-<div class="marking marking-four"></div>
-
-<div class="inner-clock-face">
-
-    <div class="hand hour-hand"></div>
-    <div class="hand min-hand"></div>
-    <div class="hand second-hand"></div>
-</div>
-    </div>
-</div>
-
-
-
-
-
-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 </div>
 </div>
 <script>

@@ -66,14 +66,14 @@ class AdminController extends Controller
 
         return redirect()->back()->with('error','Department successfully Deleted!');
     }
-    
-    
+
+
     public function attendance_history()
     {
         $atten_emp['emp_atten']= DB::table('attendences')
         ->leftjoin('users','users.id','=','attendences.user_id')
-        ->where('overtime','>',0)
         ->select('users.first_name','attendences.*')->orderBy('date','DESC')->get();
+        // dd($atten_emp);
         //dd($atten_emp['emp_atten']);
         return view('Admin.attendance_history',$atten_emp);
     }
@@ -139,7 +139,7 @@ class AdminController extends Controller
        $request->validate([
                 'email' => 'required',
                 'nis' => 'required|max:8'
-                   
+
             ]);
         User::create(
             [
@@ -180,7 +180,7 @@ class AdminController extends Controller
                 'title' => 'Email and Password',
                 'body' =>'Hi '.$request->first_name.'</br>'.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
             ];
-           
+
             \Mail::to($request->email)->send(new TestMail($details));
             return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
     }
@@ -190,6 +190,14 @@ class AdminController extends Controller
         $emp = User::find($id);
 
         return view('Admin.employee.edit', compact('emp'));
+    }
+
+
+       public function employeeView($id)
+    {
+        $emp = User::find($id);
+
+        return view('Admin.employee.view', compact('emp'));
     }
 
     public function employeeUpdate(Request $request, $id)

@@ -30,6 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('employees', 'AdminController@employees')->name('admin.employees');
 Route::get('department', 'AdminController@department')->name('admin.department');
 Route::get('employee/create', 'AdminController@employeeCreate')->name('admin.employees.create');
+Route::get('employee/{id}/view', 'AdminController@employeeView')->name('admin.employees.view');
 Route::get('employee/{id}/edit', 'AdminController@employeeEdit')->name('admin.employees.edit');
 Route::get('employee/{id}/delete', 'AdminController@employeeDestroy')->name('admin.employees.delete');
 // Route::get('employee/{id}/show', 'AdminController@employeeShow')->name('admin.employees.show');
