@@ -112,10 +112,10 @@ class AdminController extends Controller
 
         $user = User::where('email',$request->email)->first();
 
-        if($user)
-        {
-            return back()->with('error','This user email already exists.');
-        }
+        // if($user)
+        // {
+        //     return back()->with('error','This user email already exists.');
+        // }
 
         $photo = $request->photo;
 
@@ -136,11 +136,11 @@ class AdminController extends Controller
         $img1 = time().'.'.$extension1;
 
         $bank_photo->move($folderPath1, $img1);
-       $request->validate([
-                'email' => 'required',
-                'nis' => 'required|max:8'
+    //    $request->validate([
+    //             'email' => 'required',
+    //             'nis' => 'required|max:8'
 
-            ]);
+    //         ]);
         User::create(
             [
                 'email' => $request->email,
@@ -176,9 +176,10 @@ class AdminController extends Controller
                 'nis' => $request->nis,
                 'user_role' => $request->user_role,
             ]);
+            
             $details = [
                 'title' => 'Email and Password',
-                'body' =>'Hi '.$request->first_name.'</br>'.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
+                'body' =>'Hi '.$request->first_name.','.'Your Email address : '.$request->email.''.'and Your password : '. $request->password
             ];
 
             \Mail::to($request->email)->send(new TestMail($details));
