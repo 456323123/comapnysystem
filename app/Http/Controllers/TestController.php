@@ -9,10 +9,10 @@ class TestController extends Controller
     function Testmail()
     {
         $details = [
-            'title' => 'Mail from ItSolutionStuff.com',
+            'title' => 'Mail from payrol',
             'body' => 'This is for testing email using smtp'
         ];
-       
+
         \Mail::to('naeemliaqatweb@gmail.com')->send(new TestMail($details));
         return 'send emial';
     }

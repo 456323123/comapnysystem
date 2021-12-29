@@ -28,6 +28,8 @@ use App\Models\Attendence;
                                       <th>Work Time</th>
                                       <th>Basic Hours</th>
                                       <th>Over Time</th>
+                                      <th>Action</th>
+
                                   </tr>
                               </thead>
                               <tbody>
@@ -39,7 +41,7 @@ use App\Models\Attendence;
 
                                   <tr>
                                       <td>{{$i++}}</td>
-                                      <td>{{$user_name}}</td>
+                                      <td>{{$list->first_name}}</td>
                                       <td>{{$list->date}} - {{$list->start_time}}</td>
                                         @if($list->end_time==0)
 
@@ -49,32 +51,22 @@ use App\Models\Attendence;
                                                                             <td>{{$list->date}} - {{$list->end_time}}</td>
 
 @endif
-@if($list->status==0)
                                           <td>{{ $list->work_time}}</td>
-  @else
-     @php
 
-
-                $total_time_seconds= Carbon::parse($list->start_time)->diffInSeconds($list->end_time);
-$total_seconds =$total_time_seconds-28800;
-$add_overtime_after_approve=$total_time_seconds+$total_seconds;
-$before =gmdate("H:i:s", $add_overtime_after_approve);
-                                @endphp
-
-                                      <td>{{ $before}}</td>
-
-  @endif
-                                      @if($list->end_time==0)
-
-                                      <td>00:00:00</td>
-
-                                      @else
-                                                                            <td>08:00:00</td>
-@endif
-                                      @if($list->status == 0)
+ @if($list->status == 0)
+ <td>08:00:00</td>
+ @else
+                                                                            <td>08:00:00 / {{  $list->work_time}}</td>
+                        @endif
+                                                                            @if($list->status == 0)
                                       <td>00:00:00</td>
                                         @else
                                         <td>{{$list->overtime}}</td>
+                                        @endif
+ @if($list->status == 0)
+                                                                              <td><a class="btn btn-success" href="{{ route('admin.attent_status_approve', $list->id)}}" style="color: white;">Active</a></td>
+ @else
+                                                                              <td><a class="btn btn-info" href="{{ route('admin.attent_status_disapprove',$list->id) }}" style="color: white;">Inactive</a></td>
                                         @endif
                                   </tr>
                                 @endforeach

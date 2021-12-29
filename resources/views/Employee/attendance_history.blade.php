@@ -68,12 +68,12 @@ $before =gmdate("H:i:s", $add_overtime_after_approve);
                                       <td>00:00:00</td>
 
                                       @else
-                                                                            <td>08:00:00</td>
+                                                                            <td>08:00:00 / {{  $list->work_time}}</td>
 @endif
                                       @if($list->status == 0)
                                       <td>00:00:00</td>
                                         @else
-                                        <td>{{number_format((float)$list->overtime, 2,'.','')}}</td>
+                                        <td>{{ $list->overtime }}</td>
                                         @endif
                                   </tr>
                                 @endforeach
