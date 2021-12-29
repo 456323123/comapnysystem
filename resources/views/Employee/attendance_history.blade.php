@@ -1,6 +1,12 @@
 @extends('Employee.layouts.main')
 @section('content')
-<div class="container"> <section id="basic-datatable">
+<?php
+use Carbon\Carbon;
+use App\Models\Attendence;
+
+
+?>
+ <section id="basic-datatable">
   <div class="row">
       <div class="col-12">
           <div class="card">
@@ -29,34 +35,50 @@
                                     $user_name=Auth::user()->first_name;
                                 @endphp
                                 @foreach($emp_atten as $list)
+
                                   <tr>
                                       <td>{{$i++}}</td>
                                       <td>{{$user_name}}</td>
                                       <td>{{$list->date}} - {{$list->start_time}}</td>
-                                      <td>{{$list->date}} - {{$list->end_time}}</td>
-                                      <td>
-                                          @php
-                                              $work_time=number_format((float)$list->work_time, 2, '.', '');
-                                              $per_hours=explode('.',$work_time);
-                                          @endphp
-                                      {{'0'.$per_hours[0] .':'. $per_hours[1].':'. $per_hours[1]}} 
-                                      </td>
-                                      <td>08:00:00</td>
+                                        @if($list->end_time==0)
+
+                                          <td>00:00:00</td>
+
+                                      @else
+                                                                            <td>{{$list->date}} - {{$list->end_time}}</td>
+
+@endif
+@if($list->status==0)
+                                          <td>{{ $list->work_time}}</td>
+  @else
+     @php
+
+
+                $total_time_seconds= Carbon::parse($list->start_time)->diffInSeconds($list->end_time);
+$total_seconds =$total_time_seconds-28800;
+$add_overtime_after_approve=$total_time_seconds+$total_seconds;
+$before =gmdate("H:i:s", $add_overtime_after_approve);
+                                @endphp
+
+                                      <td>{{ $before}}</td>
+
+  @endif
+                                      @if($list->end_time==0)
+
+                                      <td>00:00:00</td>
+
+                                      @else
+                                                                            <td>08:00:00</td>
+@endif
                                       @if($list->status == 0)
                                       <td>00:00:00</td>
                                         @else
-                                        <td>
-                                            @php
-                                                $overtime=number_format((float)$list->overtime, 2, '.', '');
-                                                $per_hours=explode('.',$overtime);
-                                            @endphp
-                                        {{'0'.$per_hours[0] .':'. $per_hours[1].':'. $per_hours[1]}} 
-                                        </td>
+                                        <td>{{number_format((float)$list->overtime, 2,'.','')}}</td>
                                         @endif
                                   </tr>
-                                @endforeach  
+                                @endforeach
                               </tbody>
-                              
+
                           </table>
                       </div>
                   </div>
