@@ -360,18 +360,7 @@
 </div>
 </div>
 </div>
-<div class="col-6">
-<div class="form-group">
-<label for="first-name-icon">Bank Photo</label>
-<img src="{{ asset('uploads/bank_photo/'.$emp->bank_photo) }}" width="100">
-<div class="position-relative has-icon-left">
-<input type="file" id="first-name-icon" class="form-control" name="bank_photo" placeholder="Bank Photo" disabled required>
-<div class="form-control-position">
-<i class="feather icon-user"></i>
-</div>
-</div>
-</div>
-</div>
+
 <div class="col-6">
 <div class="form-group">
 <label for="first-name-icon">TRN</label>
