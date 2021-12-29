@@ -35,11 +35,11 @@
                     <i class="feather icon-home"></i>
                     <span class="menu-title" data-i18n="services">Dashboard</span></a>
                   </li>
-                  
+
             <li class={{ Request::is('employee/attendance_history')? 'active' : '' }}>
                 <a href="{{route('employee.attendance_history')}}">
-                    <i class="feather icon-user"></i>
-                    <span class="menu-title" data-i18n="services">Attendance History</span></a> 
+                    <i class="feather icon-clock"></i>
+                    <span class="menu-title" data-i18n="services">Attendance History</span></a>
                  </li>
 
 

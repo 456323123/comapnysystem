@@ -112,10 +112,10 @@ class AdminController extends Controller
 
         $user = User::where('email',$request->email)->first();
 
-        // if($user)
-        // {
-        //     return back()->with('error','This user already exists.');
-        // }
+        if($user)
+        {
+            return back()->with('error','This user email already exists.');
+        }
 
         $photo = $request->photo;
 

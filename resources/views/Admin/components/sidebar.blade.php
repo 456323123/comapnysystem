@@ -40,13 +40,13 @@
                   </li>
                   <li class={{ Request::is('admin/department')? 'active' : '' }}>
                     <a href="{{route('admin.department')}}">
-                        <i class="feather icon-user"></i>
+                        <i class="feather icon-list"></i>
                         <span class="menu-title" data-i18n="services">Department</span>
                     </a>
                   </li>
                   <li class={{ Request::is('admin/attendance_history')? 'active' : '' }}>
                     <a href="{{route('admin.attendance_history')}}">
-                        <i class="feather icon-user"></i>
+                        <i class="feather icon-clock"></i>
                         <span class="menu-title" data-i18n="services">Attendance History</span>
                     </a>
                   </li>

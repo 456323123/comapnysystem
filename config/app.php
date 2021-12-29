@@ -67,11 +67,7 @@ return [
     |
     */
 
-<<<<<<< Updated upstream
     'timezone' => 'Asia/karachi',
-=======
-    'timezone' => 'Asia/Karachi',
->>>>>>> Stashed changes
 
     /*
     |--------------------------------------------------------------------------
