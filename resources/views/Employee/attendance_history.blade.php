@@ -54,10 +54,11 @@ use App\Models\Attendence;
      @php
 
 
-                $total_time_seconds= Carbon::parse($list->start_time)->diffInSeconds($list->end_time);
-$total_seconds =$total_time_seconds-28800;
-$add_overtime_after_approve=$total_time_seconds+$total_seconds;
-$before =gmdate("H:i:s", $add_overtime_after_approve);
+                $total_time_seconnds= Carbon::parse($list->start_time)->diffInSeconds($list->end_time);
+
+
+
+$before =gmdate("H:i:s", $total_time_seconnds);
                                 @endphp
 
                                       <td>{{ $before}}</td>

@@ -58,11 +58,8 @@ use App\Models\Attendence;
  @else
                                                                             <td>08:00:00 / {{  $list->work_time}}</td>
                         @endif
-                                                                            @if($list->status == 0)
-                                      <td>00:00:00</td>
-                                        @else
+
                                         <td>{{$list->overtime}}</td>
-                                        @endif
  @if($list->status == 0)
                                                                               <td><a class="btn btn-success" href="{{ route('admin.attent_status_approve', $list->id)}}" style="color: white;">Active</a></td>
  @else

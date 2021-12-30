@@ -44,8 +44,8 @@ class EmployeeController extends Controller
 //     dd($totalDuration);
         $In_time_update=Attendence::find($atten_id);
         $todayDate = Carbon::now()->format('d-m-Y');
-        // $c_time='03:20:10 PM';
-         $c_time=date('h:i:s A');
+        $c_time='02:20:10 PM';
+        //  $c_time=date('h:i:s A');
         $c_date=date('Y-m-d');
         $end_timee = date('h:i:s A', strtotime($c_time));
 
@@ -101,9 +101,9 @@ $overtime =gmdate("H:i:s", $total_seconds);
     {
         $user_id=$request->user_id;
         $c_date=date('Y-m-d');
-                // $c_time='08:14:00 AM';
+                $c_time='08:14:00 AM';
 
-        $c_time=date('h:i:s A');
+        // $c_time=date('h:i:s A');
         $start_time = date('h:i:s A', strtotime($c_time));
 
         $check_atten_one_time=Attendence::where('user_id', $user_id)->where('date', $c_date)->first();
