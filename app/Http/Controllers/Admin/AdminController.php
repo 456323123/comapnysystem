@@ -112,11 +112,11 @@ class AdminController extends Controller
 
         $user = User::where('email',$request->email)->first();
 
-            \Mail::to($user->email)->send(new TestMail($details));
-            $admin = [
-                'title' => 'user  Email and Password',
-                'body' =>'Hi...'.$request->first_name.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
-            ];
+            // \Mail::to($user->email)->send(new TestMail($details));
+            // // $admin = [
+            // //     'title' => 'user  Email and Password',
+            // //     'body' =>'Hi...'.$request->first_name.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
+            // // ];
 
 
             return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
@@ -185,12 +185,64 @@ class AdminController extends Controller
         return redirect()->route('admin.employees')->with('message', 'Employee updated succeddfuly.');
     }
 
-    }
+    
 
     public function employeeShow($id)
     {
         $emp = User::find($id);
-
         return view('Admin.employee.show', compact('emp'));
     }
+    public function update_profile(Request $request)
+    {
+
+      $user = User::find(Auth::user()->id);
+      if(isset($request->photo))
+      {
+      $image=$request->file('photo');
+      $imageName = $image->getClientOriginalName();
+
+      $user->update([
+          'photo' => $imageName,
+      ]);
+      $path=$image->move(public_path('uploads/employees'),$imageName);            
+      }
+                
+    
+       
+      $user->update([
+      'first_name' => $request->first_name,
+      'last_name' => $request->last_name,
+     
+  ]);
+ 
+       if(isset($request->c_password))
+       {
+         $request->validate([
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required_with:password|same:new_password|min:8'
+               
+        ]);
+        if(Hash::check($request->c_password,$user->password)) { 
+                $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+            $msg="Your profile has been updated";
+            $request->session()->flash('message',$msg);
+            return redirect('/profile');
+
+        }else{
+            $msg= "Your Password does't match";
+             $request->session()->flash('error',$msg);
+            return redirect('/profile');
+        }
+      }else{
+          $msg="Your profile has been updated";
+          $request->session()->flash('message',$msg);
+          return redirect('/profile');
+
+      }
+    }
+
+
+    
 }

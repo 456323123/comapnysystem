@@ -222,7 +222,7 @@ a{text-decoration: none;color:#555555;}
 			<div class="row">
 				<div class="col-xs-7 col-sm-7 col-md-7">
 					<i class="fa fa-lock"></i>
-					<a href="#"> Forgot password? </a>
+					<a href="{{url('password/reset')}}"> Forgot password? </a>
 				</div>
 				<div class="col-xs-5 col-sm-5 col-md-5">
 					<i class="fa fa-check"></i> <a href="#"> Sign Up </a>

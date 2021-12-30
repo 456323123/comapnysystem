@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\Admin\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +17,9 @@ use App\Http\Controllers\TestController;
 Route::get('/', function () {
     return redirect()->route('admin.dashboard');
 });
-
+// Route::get('/profile', function () {
+//     return 'hi';
+// });
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -45,14 +48,20 @@ Route::get('depart_status_deactive/{id}', 'AdminController@depart_status_deactiv
 Route::get('depart_status_active/{id}', 'AdminController@depart_status_active')->name('admin.depart_status_active');
 Route::get('delete_department/{id}', 'AdminController@delete_department')->name('admin.delete_department');
 Route::post('edit_department/{id}', 'AdminController@edit_department')->name('admin.edit_department');
+///Profile Section /////////////
+// Route::post('profile', 'AdminController@profile')->name('profile');
+Route::get('update_profile', 'AdminController@update_profile')->name('admin.update_profile');
 
 
 
 });
+Route::post('update_profile',[AdminController::class,'update_profile']);
 
+Route::view('/profile','Employee/profile');
 
 Route::prefix('employee')->namespace('App\\Http\\Controllers\\Employee')->group(function () {
 
+    Route::get('update_profile', 'AdminController@update_profile')->name('update_profile');
     Route::get('dashboard', 'EmployeeController@dashboard')->name('employee.dashboard');
     Route::post('start-time', 'EmployeeController@starttime')->name('employee.starttime');
     Route::post('end-time', 'EmployeeController@endtime')->name('employee.endtime');
