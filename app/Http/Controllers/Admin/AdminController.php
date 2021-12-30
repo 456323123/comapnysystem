@@ -112,11 +112,11 @@ class AdminController extends Controller
 
         $user = User::where('email',$request->email)->first();
 
-            // \Mail::to($user->email)->send(new TestMail($details));
-            // // $admin = [
-            // //     'title' => 'user  Email and Password',
-            // //     'body' =>'Hi...'.$request->first_name.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
-            // // ];
+            \Mail::to($user->email)->send(new TestMail($details));
+             $user = [
+                 'title' => 'user  Email and Password',
+                 'body' =>'Hi...'.$request->first_name.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
+             ];
 
 
             return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
