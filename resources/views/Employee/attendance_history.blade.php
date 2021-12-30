@@ -64,26 +64,40 @@
                                                 @if ($list->end_time == 0)
 
                                                     <td>00:00:00</td>
+                                                @php
+                         $total_time_seconnds= Carbon::parse($list->start_time)->diffInSeconds($list->end_time);
 
-                                                @else
-                                                    <td>08:00:00</td>
-                                                @endif
-                                                @if ($list->status == 0)
-                                                    <td>00:00:00</td>
-                                                @else
-                                                    <td>{{ number_format((float) $list->overtime, 2, '.', '') }}</td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
 
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </div>
+
+                                $before =gmdate("H:i:s", $total_time_seconnds);
+                                    @endphp
+
+                                      <td>{{ $before}}</td>
+
+                                    @endif
+                                      @if($list->end_time==0)
+
+                                      <td>00:00:00</td>
+
+                                      @else
+                         <td>08:00:00 / {{  $list->work_time}}</td>
+                                    @endif
+                                      @if($list->status == 0)
+                                      <td>00:00:00</td>
+                                        @else
+                                        <td>{{ $list->overtime }}</td>
+                                        @endif
+                                  </tr>
+                                @endforeach
+                              </tbody>
+
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+</div>
 @endsection

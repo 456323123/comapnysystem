@@ -147,8 +147,11 @@
 <div class="form-group">
 <label for="password-icon">Employment Status</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="password-icon" class="form-control" name="employment_status" placeholder="Employment Status" value="{{ $emp->employment_status }}" required>
-<div class="form-control-position">
+<select name="employment_status" class="form-control" id="gender" required>
+<option value="" disabled>Select Option</option>
+<option value="Permanent" value="male" @if($emp->employment_status === 'Permanent') selected  @endif>Permanent </option>
+<option value="Contract" value="female" @if($emp->employment_status === 'Contract') selected  @endif>Contract </option>
+</select><div class="form-control-position">
 <i class="feather icon-briefcase"></i>
 </div>
 </div>
@@ -245,6 +248,8 @@
 <option value="male" @if($emp->statutory_deductions === 'applicable') selected  @endif>Applicable</option>
 <option value="female" @if($emp->statutory_deductions === 'not applicable') selected  @endif>Not Applicable</option>
 </select>
+
+
 <div class="form-control-position">
 <i class="feather icon-user"></i>
 </div>
@@ -358,23 +363,12 @@
 </div>
 </div>
 </div>
-<div class="col-6">
-<div class="form-group">
-<label for="first-name-icon">Bank Photo</label>
-<img src="{{ asset('uploads/bank_photo/'.$emp->bank_photo) }}" width="100">
-<div class="position-relative has-icon-left">
-<input type="file" id="first-name-icon" class="form-control" name="bank_photo" placeholder="Bank Photo" required>
-<div class="form-control-position">
-<i class="feather icon-user"></i>
-</div>
-</div>
-</div>
-</div>
+
 <div class="col-6">
 <div class="form-group">
 <label for="first-name-icon">TRN</label>
 <div class="position-relative has-icon-left">
-<input type="text" id="first-name-icon"  pattern="\d{8}|\d{8}"  title="Must be only 8 digit" class="form-control" name="trn" value="{{ $emp->trn }}" placeholder="TRN" required>
+<input type="text" id="first-name-icon"  pattern="\d{9}|\d{9}"  title="Must be only 9 digit" class="form-control" name="trn" value="{{ $emp->trn }}" placeholder="TRN" required>
 
 <div class="form-control-position">
 <i class="feather icon-user"></i>

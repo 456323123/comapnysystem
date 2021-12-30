@@ -73,7 +73,7 @@ class AdminController extends Controller
         $atten_emp['emp_atten']= DB::table('attendences')
         ->leftjoin('users','users.id','=','attendences.user_id')
         ->select('users.first_name','attendences.*')->orderBy('date','DESC')->get();
-        // dd($atten_emp);
+        //  dd($atten_emp);
         //dd($atten_emp['emp_atten']);
         return view('Admin.attendance_history',$atten_emp);
     }
@@ -112,77 +112,13 @@ class AdminController extends Controller
 
         $user = User::where('email',$request->email)->first();
 
-        // if($user)
-        // {
-        //     return back()->with('error','This user email already exists.');
-        // }
-
-        $photo = $request->photo;
-
-        $extension = $photo->getClientOriginalExtension();
-
-        $folderPath = public_path('uploads/employees/');
-
-        $img = time().'.'.$extension;
-
-        $photo->move($folderPath, $img);
-
-        $bank_photo = $request->bank_photo;
-
-        $extension1 = $bank_photo->getClientOriginalExtension();
-
-        $folderPath1 = public_path('uploads/bank_photo/');
-
-        $img1 = time().'.'.$extension1;
-
-        $bank_photo->move($folderPath1, $img1);
-    //    $request->validate([
-    //             'email' => 'required',
-    //             'nis' => 'required|max:8'
-
-    //         ]);
-        User::create(
-            [
-                'email' => $request->email,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'gender' => $request->gender,
-                'dob' => $request->dob,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'residence_address' => $request->residence_address,
-                'photo' => $img,
-                'employment_status' => $request->employment_status,
-                'hire_date' => $request->hire_date,
-                'employee_id' => $request->employee_id,
-                'regular_hours' => $request->regular_hours,
-                'hourly_rate' => $request->hourly_rate,
-                'ot_rate' => $request->ot_rate,
-                'department' => $request->department,
-                'statutory_deductions' => $request->statutory_deductions,
-                'attn_inc_rate' => $request->attn_inc_rate,
-                'phone_number' => $request->phone_number,
-                'emergency_contact_name' => $request->emergency_contact_name,
-                'emergency_contact_number' => $request->emergency_contact_number,
-                'education' => $request->education,
-                'experience' => $request->experience,
-                'id_type' => $request->id_type,
-                'id_number' => $request->id_number,
-                'bank' => $request->bank,
-                'account_number' => $request->account_number,
-                'branch' => $request->branch,
-                'bank_photo' => $img1,
-                'trn' => $request->trn,
-                'nis' => $request->nis,
-                'user_role' => $request->user_role,
-            ]);
-            
-            $details = [
-                'title' => 'Email and Password',
-                'body' =>'Hi '.$request->first_name.','.'Your Email address : '.$request->email.''.'and Your password : '. $request->password
+            \Mail::to($user->email)->send(new TestMail($details));
+            $admin = [
+                'title' => 'user  Email and Password',
+                'body' =>'Hi...'.$request->first_name.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
             ];
 
-            \Mail::to($request->email)->send(new TestMail($details));
+
             return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
     }
 
@@ -205,36 +141,6 @@ class AdminController extends Controller
     {
         $emp = User::find($id);
 
-        $img = $emp->photo;
-
-        $img1 = $emp->bank_photo;
-
-        if($request->photo)
-        {
-        $photo = $request->photo;
-
-        $extension = $photo->getClientOriginalExtension();
-
-        $folderPath = public_path('uploads/employees/');
-
-        $img = time().'.'.$extension;
-
-        $photo->move($folderPath, $img);
-        }
-
-        if($request->bank_photo)
-        {
-        $bank_photo = $request->bank_photo;
-
-        $extension1 = $bank_photo->getClientOriginalExtension();
-
-        $folderPath1 = public_path('uploads/bank_photo/');
-
-        $img1 = time().'.'.$extension1;
-
-        $bank_photo->move($folderPath1, $img1);
-        }
-
         $emp->update([
                 'email' => $request->email,
                 'first_name' => $request->first_name,
@@ -243,7 +149,6 @@ class AdminController extends Controller
                 'dob' => $request->dob,
                 'email' => $request->email,
                 'residence_address' => $request->residence_address,
-                'photo' => $img,
                 'employment_status' => $request->employment_status,
                 'hire_date' => $request->hire_date,
                 'employee_id' => $request->employee_id,
@@ -263,22 +168,23 @@ class AdminController extends Controller
                 'bank' => $request->bank,
                 'account_number' => $request->account_number,
                 'branch' => $request->branch,
-                'bank_photo' => $img1,
+                'bank_photo' => 'null',
                 'trn' => $request->trn,
                 'nis' => $request->nis,
                 'user_role' => $request->user_role,
         ]);
-
+ if (request()->hasfile('photo')) {
+                $image = request()->file('photo');
+                $filename = time() . '.' . $image->getClientOriginalName();
+                $movedFile = $image->move('uploads/employees', $filename);
+                $emp->photo = $filename;
+                $emp->save();
+            } else {
+                $emp->save();
+            }
         return redirect()->route('admin.employees')->with('message', 'Employee updated succeddfuly.');
     }
 
-    public function employeeDestroy($id)
-    {
-        $emp = User::find($id);
-
-        $emp->delete();
-
-        return back()->with('message', 'Employee delete successfully.');
     }
 
     public function employeeShow($id)

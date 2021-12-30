@@ -49,10 +49,10 @@
                                                             <td>{{ $emp->statutory_deductions }}</td>
                                                             <td>{{ $emp->attn_inc_rate }}</td>
                                                             <td>
-                                                         <a href="{{ route('admin.employees.view', $emp->id) }}"><i class="feather   icon-eye " style="font-size: 20px;"></i></a>
+                                                         <a href="{{ route('admin.employees.view', $emp->id) }}"><i class="feather   icon-eye " title="View Detail" ></i></a>
 
-                                                                <a href="{{ route('admin.employees.edit', $emp->id) }}"><i class="feather icon-edit ml-1" style="font-size: 18px;"></i></a>
-                                                                <a href="{{ route('admin.employees.delete', $emp->id) }}"><i class="feather ml-1 icon-trash text-danger" style="font-size: 18px;"></i></a>
+                                                                <a href="{{ route('admin.employees.edit', $emp->id) }}"><i class="feather icon-edit ml-0.5" title="Edit Detail"></i></a>
+                                                                <a href="{{ route('admin.employees.delete', $emp->id) }}"><i class="feather ml-0.5 icon-trash text-danger" title="Delete Detail"></i></a>
 
                                                             </td>
                                                         </tr>
