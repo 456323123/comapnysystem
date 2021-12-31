@@ -50,6 +50,12 @@
                         <span class="menu-title" data-i18n="services">Attendance History</span>
                     </a>
                   </li>
+                  <li class={{ Request::is('admin/payroll')? 'active' : '' }}>
+                    <a href="{{url('admin/payroll')}}">
+                        <i class="feather icon-list"></i>
+                        <span class="menu-title" data-i18n="services">Payroll</span>
+                    </a>
+                  </li>
 
 
 
