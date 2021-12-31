@@ -52,9 +52,11 @@ Route::post('edit_department/{id}', 'AdminController@edit_department')->name('ad
 // Route::post('profile', 'AdminController@profile')->name('profile');
 Route::get('update_profile', 'AdminController@update_profile')->name('admin.update_profile');
 
+Route::view('/payroll','Admin/payroll');
 
 
 });
+
 Route::post('update_profile',[AdminController::class,'update_profile']);
 
 Route::view('/profile','Employee/profile');
