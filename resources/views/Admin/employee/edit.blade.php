@@ -149,8 +149,8 @@
 <div class="position-relative has-icon-left">
 <select name="employment_status" class="form-control" id="gender" required>
 <option value="" disabled>Select Option</option>
-<option value="Permanent" value="male" @if($emp->employment_status === 'Permanent') selected  @endif>Permanent </option>
-<option value="Contract" value="female" @if($emp->employment_status === 'Contract') selected  @endif>Contract </option>
+<option value="Permanent" @if($emp->employment_status === 'Permanent') selected  @endif>Permanent </option>
+<option value="Contract"  @if($emp->employment_status === 'Contract') selected  @endif>Contract </option>
 </select><div class="form-control-position">
 <i class="feather icon-briefcase"></i>
 </div>
@@ -245,8 +245,8 @@
 {{-- <input type="number" id="password-icon" class="form-control" name="statutory_deductions" placeholder="Statutory Deductions" value="{{ $emp->statutory_deductions }}" required> --}}
 <select name="statutory_deductions" class="form-control" id="gender" required>
 <option value="" disabled>Select Option</option>
-<option value="male" @if($emp->statutory_deductions === 'applicable') selected  @endif>Applicable</option>
-<option value="female" @if($emp->statutory_deductions === 'not applicable') selected  @endif>Not Applicable</option>
+<option value="applicable" @if($emp->statutory_deductions === 'applicable') selected  @endif>Applicable</option>
+<option value="not applicable" @if($emp->statutory_deductions === 'not applicable') selected  @endif>Not Applicable</option>
 </select>
 
 

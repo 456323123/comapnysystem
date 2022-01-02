@@ -53,7 +53,14 @@ Route::post('edit_department/{id}', 'AdminController@edit_department')->name('ad
 Route::get('update_profile', 'AdminController@update_profile')->name('admin.update_profile');
 
 Route::view('/payroll','Admin/payroll');
+Route::view('/add_threshold','Admin/add_threshold');
+Route::view('/add_threshold','Admin/add_threshold');
 
+Route::get('/threshold',[AdminController::class,'threshold']);
+Route::post('/add_threshold',[AdminController::class,'add_threshold']);
+Route::get('/edit_threshold/{id}',[AdminController::class,'edit_threshold']);
+Route::post('/update_threshold/{id}',[AdminController::class,'update_threshold']);
+Route::get('/delete_threshold/{id}',[AdminController::class,'delete_threshold']);
 
 });
 

@@ -56,8 +56,14 @@
                         <span class="menu-title" data-i18n="services">Payroll</span>
                     </a>
                   </li>
+                  <li class={{ Request::is('admin/threshold')? 'active' : '' }}>
+                    <a href="{{url('admin/threshold')}}">
+                        <i class="feather icon-list"></i>
+                        <span class="menu-title" data-i18n="services">Threshold</span>
+                    </a>
+                  </li>
 
-
+                  
 
 
 

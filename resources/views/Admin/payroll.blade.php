@@ -40,7 +40,7 @@
                                                             <input type="date" id="password-icon" class="form-control"
                                                                 name="dob" placeholder="start date">
                                                             <div class="form-control-position">
-                                                                <i class="feather icon-gift"></i>
+                                                                <i class="feather icon-calendar "></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -52,7 +52,7 @@
                                                             <input type="date" id="password-icon" class="form-control"
                                                                 name="dob" placeholder="End date">
                                                             <div class="form-control-position">
-                                                                <i class="feather icon-gift"></i>
+                                                                <i class="feather icon-calendar "></i>
                                                             </div>
                                                         </div>
                                                     </div>

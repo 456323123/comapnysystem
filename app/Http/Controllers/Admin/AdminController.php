@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Attendence;
 use App\Mail\TestMail;
+use App\Models\Threshold;
 
 use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
@@ -242,7 +243,71 @@ class AdminController extends Controller
 
       }
     }
+    public function threshold(Request $request)
+    {
+        $threshold['threshold']=Threshold::all();
+        return view('Admin/threshold',$threshold);
+    }
+    public function add_threshold(Request $request)
+    {
+        $request->validate([
+            'year' => 'required',
+            'cycle' => 'required',
+            'amount' => 'required',
+            'days' => 'required',
+            'paid_by' => 'required'
+               
+        ]);
+    
+        //Threshold data save start
+        $threshold=new Threshold();
+        $threshold->year=$request->year;
+        $threshold->cycle=$request->cycle;
+        $threshold->amount=$request->amount;
+        $threshold->days=$request->days;
+        $threshold->paid_by=$request->paid_by;
+        $threshold->save();
+        session()->flash('success','Threshold successfully addedd!');
+        return redirect('admin/threshold');
 
+      
+    }
+    public function edit_threshold(Request $request,$id)
+    {
+        $edit_threshold['edit_threshold']=Threshold::find($id);
+        return view('Admin/edit_threshold',$edit_threshold);
 
+    }
+    
+    public function update_threshold(Request $request,$id)
+    {
+        $request->validate([
+            'year' => 'required',
+            'cycle' => 'required',
+            'amount' => 'required',
+            'days' => 'required',
+            'paid_by' => 'required'
+               
+            ]);
+        //Threshold data save start
+        $threshold=Threshold::find($id);
+        $threshold->year=$request->year;
+        $threshold->cycle=$request->cycle;
+        $threshold->amount=$request->amount;
+        $threshold->days=$request->days;
+        $threshold->paid_by=$request->paid_by;
+        $threshold->save();
+        session()->flash('success','Threshold successfully Updated!');
+        return redirect('admin/threshold');
+
+      
+    }
+    public function delete_threshold(Request $request,$id)
+    {
+        $threshold=Threshold::find($id);
+        $threshold->delete();
+        session()->flash('error','Threshold successfully Deleted!');
+        return redirect('admin/threshold');
+    }
     
 }
