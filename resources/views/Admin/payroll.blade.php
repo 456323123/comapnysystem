@@ -13,63 +13,65 @@
                             <div class="card-body card-dashboard">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <form class="my-5">
+                                        <form class="my-5" method="post" action="{{ url('admin/search') }}">
+                                            @csrf
                                             <div class="form-group">
                                                 <label for="first-name-icon">Cycle</label>
 
                                                 <div class="position-relative has-icon-left">
-                                                    <input type="text" list="browsers" id="first-name-icon"
-                                                        class="form-control" name="first_name" placeholder="Cycle"
-                                                        required="">
+                                                    <select class="form-control cycle" name="cycle" placeholder="Cycle">
+                                                        <option value="">Select Cycle</option>
 
-                                                    <datalist id="browsers">
-                                                        <option value="Weekly">Weekly</option>
-                                                        <option value="Fortnightly">Fortnightly</option>
-                                                        <option value="Monthly">Monthly</option>
-                                                    </datalist>
+                                                        @foreach ($threshold as $list)
+                                                            <option value="{{ $list->days }}" cycle="{{ $list->days }}">
+                                                                {{ $list->cycle }}</option>
+                                                        @endforeach
+
+                                                    </select>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-user"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                            {{-- <div class="row">
+                                                <div class="col-md-6"> --}}
                                                     <div class="form-group">
                                                         <label for="password-icon">Duration</label>
                                                         <div class="position-relative has-icon-left">
-                                                            <input type="date" id="password-icon" class="form-control"
-                                                                name="dob" placeholder="start date">
+                                                            <input type="date" id="date-input" class="form-control"
+                                                                name="start_date" placeholder="start date">
                                                             <div class="form-control-position">
                                                                 <i class="feather icon-calendar "></i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                {{-- </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="password-icon">End Date</label>
                                                         <div class="position-relative has-icon-left">
                                                             <input type="date" id="password-icon" class="form-control"
-                                                                name="dob" placeholder="End date">
+                                                                name="end_date" placeholder="End date">
                                                             <div class="form-control-position">
                                                                 <i class="feather icon-calendar "></i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                                </div> 
+                                            </div>--}}
                                             <div class="form-group">
                                                 <label for="first-name-icon">Dept</label>
 
                                                 <div class="position-relative has-icon-left">
-                                                    <input type="text" list="Weekly" id="first-name-icon"
-                                                        class="form-control" name="Dept" placeholder="Dept" required="">
+                                                    <select type="text" list="Weekly" id="first-name-icon"
+                                                        class="form-control" name="Dept" placeholder="Dept">
+                                                        <option value="">Select Department</option>
 
-                                                    <datalist id="Weekly">
-                                                        <option value="Weekly">Weekly</option>
-                                                        <option value="Fortnightly">Fortnightly</option>
-                                                        <option value="Monthly">Monthly</option>
-                                                    </datalist>
+                                                        @foreach ($department as $list)
+                                                            <option value="{{ $list->id }}">{{ $list->department }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-user"></i>
                                                     </div>
@@ -79,14 +81,15 @@
                                                 <label for="first-name-icon">Emp</label>
 
                                                 <div class="position-relative has-icon-left">
-                                                    <input type="text" list="Emp" id="first-name-icon"
-                                                        class="form-control" name="Emp" placeholder="Emp" required="">
+                                                    <select type="text" list="Emp" id="first-name-icon"
+                                                        class="form-control" name="Emp" placeholder="Emp">
+                                                        <option value="">Select Employee</option>
 
-                                                    <datalist id="Emp">
-                                                        <option value="Weekly">Weekly</option>
-                                                        <option value="Fortnightly">Fortnightly</option>
-                                                        <option value="Monthly">Monthly</option>
-                                                    </datalist>
+                                                        @foreach ($users as $list)
+                                                            <option value="{{ $list->id }}">{{ $list->first_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-user"></i>
                                                     </div>
@@ -114,49 +117,66 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">Laci-Anne McGowan </th>
-                                                        <td>38.85</td>
-                                                        <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
-                                                        <td><button type="submit" class="btn btn-info btn-sm"><i
-                                                                    class="fa fa-fw fa-eye"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">Laci-Anne McGowan </th>
-                                                        <td>38.85</td>
-                                                        <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
-                                                        <td><button type="submit" class="btn btn-info btn-sm"><i
-                                                                    class="fa fa-fw fa-eye"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">Laci-Anne McGowan </th>
-                                                        <td>38.85</td>
-                                                        <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
-                                                        <td><button type="submit" class="btn btn-info btn-sm"><i
-                                                                    class="fa fa-fw fa-eye"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">Laci-Anne McGowan </th>
-                                                        <td>38.85</td>
-                                                        <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
-                                                        <td><button type="submit" class="btn btn-info btn-sm"><i
-                                                                    class="fa fa-fw fa-eye"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">Laci-Anne McGowan </th>
-                                                        <td>38.85</td>
-                                                        <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
-                                                        <td><button type="submit" class="btn btn-info btn-sm"><i
-                                                                    class="fa fa-fw fa-eye"></i></button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">Laci-Anne McGowan </th>
-                                                        <td>38.85</td>
-                                                        <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
-                                                        <td><button type="submit" class="btn btn-info btn-sm"><i
-                                                                    class="fa fa-fw fa-eye"></i></button></td>
-                                                    </tr>
 
+                                                    <tr>
+                                                        @if (isset($attendence_id) != '')
+                                                            <th scope="row">{{ $users_name->first_name }} </th>
+                                                            <td>{{ $hours }}</td>
+                                                            <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
+                                                            <td><button type="button" atten="{{ $attendence_id }}"
+                                                                    class="btn btn-info btn-sm"><i
+                                                                        class="fa fa-fw fa-eye"></i></button></td>
+                                                        @endif
+                                                    </tr>
+                                                    @if (isset($users_name_dep) != '')
+
+                                                        @foreach ($users_name_dep as $list)
+                                                            <tr>
+                                                                <th scope="row">{{ $list->first_name }} </th>
+                                                                <td>
+                                                                    @php
+                                                                        //$attendence_id = App\Models\Attendence::where('user_id', $list->id)->get();
+                                                                        $hours_get = App\Models\Attendence::where('user_id', $list->id)->sum('total_hours');
+                                                                        $hours = gmdate('H:i', $hours_get);
+                                                                        
+                                                                    @endphp
+                                                                    {{ $hours }}
+
+                                                                </td>
+                                                                <td><i class="fa fa-fw fa-check" style="color: green;"></i>
+                                                                </td>
+                                                                <td><button type="button" atten="{{ $list->id }}"
+                                                                        class="btn btn-info btn-sm"><i
+                                                                            class="fa fa-fw fa-eye"></i></button></td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                    @if (isset($date_bw_data) != '')
+
+                                                        @foreach ($date_bw_data as $list)
+                                                        @php
+
+                                                        $users =App\Models\User::where('id',$list->user_id)->select('first_name','id')->distinct('id')->first();
+
+                                                        $hours_get = App\Models\Attendence::where('user_id', $list->user_id)->sum('total_hours');
+                                                        $hours = gmdate('H:i', $hours_get);
+                                                        
+                                                    @endphp
+                                                            <tr>
+                                                                <th scope="row">{{ $users->first_name }} </th>
+                                                                <td>
+                                                                   
+                                                                    {{ $hours }}
+
+                                                                </td>
+                                                                <td><i class="fa fa-fw fa-check" style="color: green;"></i>
+                                                                </td>
+                                                                <td><button type="button" atten="{{ $list->id }}"
+                                                                        class="btn btn-info btn-sm"><i
+                                                                            class="fa fa-fw fa-eye"></i></button></td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -271,4 +291,16 @@
                 </div>
             </div>
         </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script>
+            $('document').ready(function() {
+                $('.cycle').on('change', function() {
+                    // var cycle_days = $('option').val();
+                    // alert(cycle_days);
+                });
+                S
+
+            });
+        </script>
     @endsection

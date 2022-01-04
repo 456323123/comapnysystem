@@ -309,5 +309,6 @@ class AdminController extends Controller
         session()->flash('error','Threshold successfully Deleted!');
         return redirect('admin/threshold');
     }
+   
     
 }

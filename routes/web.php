@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\PayrollController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,7 +53,7 @@ Route::post('edit_department/{id}', 'AdminController@edit_department')->name('ad
 // Route::post('profile', 'AdminController@profile')->name('profile');
 Route::get('update_profile', 'AdminController@update_profile')->name('admin.update_profile');
 
-Route::view('/payroll','Admin/payroll');
+
 Route::view('/add_threshold','Admin/add_threshold');
 Route::view('/add_threshold','Admin/add_threshold');
 
@@ -63,6 +64,8 @@ Route::post('/update_threshold/{id}',[AdminController::class,'update_threshold']
 Route::get('/delete_threshold/{id}',[AdminController::class,'delete_threshold']);
 
 });
+Route::get('admin/payroll',[PayrollController::class,'payroll']);
+Route::post('admin/search',[PayrollController::class,'search']);
 
 Route::post('update_profile',[AdminController::class,'update_profile']);
 
