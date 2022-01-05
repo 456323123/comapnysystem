@@ -202,15 +202,9 @@ $(":input").inputmask();
                   "atten_id":atten_id
               },
               success: function (resutl) {
-                  //var data=JSON.parse(resutl);
-                  //console.log(data.first_name);
-                  console.warn('lep');
-                  console.warn(JSON.stringify(resutl));
-                  $('.department').html(resutl.department);
+                $('.department').html(resutl.department);
                   $('.first_name').html(resutl.first_name);
                   $('.work_hours').html(resutl.total_hours);
-                  //alert(data.first_name);
-
               }
           });
          });
