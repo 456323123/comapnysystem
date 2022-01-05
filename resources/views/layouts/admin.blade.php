@@ -188,7 +188,34 @@ $(":input").inputmask();
 
 
     @yield('js')
+    <script>
+        $('document').ready(function() {
+            //alert();
+        $('.btn-info').click(function() {
+            //alert();
+         var atten_id=$(this).attr('atten');
+        //   alert(atten_id);
+          $.ajax({
+              url:"{{url('atten_get')}}",
+              type:"get",
+              data:{
+                  "atten_id":atten_id
+              },
+              success: function (resutl) {
+                  //var data=JSON.parse(resutl);
+                  //console.log(data.first_name);
+                  console.warn('lep');
+                  console.warn(JSON.stringify(resutl));
+                  $('.department').html(resutl.department);
+                  $('.first_name').html(resutl.first_name);
+                  $('.work_hours').html(resutl.total_hours);
+                  //alert(data.first_name);
 
+              }
+          });
+         });
+        });
+        </script>
 </body>
 <!-- END: Body-->
 

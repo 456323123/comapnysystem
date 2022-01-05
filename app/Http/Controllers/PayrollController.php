@@ -65,4 +65,25 @@ class PayrollController extends Controller
         return view('Admin/payroll',$search);
 
     }
+    public function atten_get(Request $request)
+    {
+        $user_id= $request->atten_id;
+        $get_signle_atten=Attendence::where('user_id',$user_id)->get();
+        $hours_get= Attendence::where('user_id', $user_id)->sum('total_hours');
+        $overtime_get= Attendence::where('user_id', $user_id)->sum('overtime');
+    
+        $overtime =gmdate("H:i", $overtime_get);
+        $hours =gmdate("H:i", $hours_get);
+
+        $atten_get=User::where('id',$user_id)->first();
+        $first_name=$atten_get->first_name;
+        $dep_id=$atten_get->department;
+
+        $department_get=Department::where('id',$dep_id)->select('department')->first();
+        $department_name= $department_get->department;
+        //echo $first_name;
+        //return $department_get->department;
+       return response()->json(['department'=>$department_name,'first_name'=>$first_name,'total_hours'=>$hours]);
+        //dd($atten_get['department'],$dep_id,$atten_get->first_name);
+    }
 }

@@ -66,6 +66,7 @@ Route::get('/delete_threshold/{id}',[AdminController::class,'delete_threshold'])
 });
 Route::get('admin/payroll',[PayrollController::class,'payroll']);
 Route::post('admin/search',[PayrollController::class,'search']);
+Route::get('atten_get',[PayrollController::class,'atten_get']);
 
 Route::post('update_profile',[AdminController::class,'update_profile']);
 
