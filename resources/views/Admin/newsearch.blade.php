@@ -63,8 +63,8 @@
 <label for="first-name-icon">Dept</label>
 
 <div class="position-relative has-icon-left">
-<select type="text"   name="DEPARTMENT" list="Weekly" id="first-name-icon"
-class="form-control" placeholder="Dept">
+<select type="text" name="DEPARTMENT" list="Weekly" id="first-name-icon"
+class="form-control"  placeholder="Dept">
 <option value="">Select Department</option>
 
 @foreach ($department as $list)
@@ -81,8 +81,8 @@ class="form-control" placeholder="Dept">
 <label for="first-name-icon">Emp</label>
 
 <div class="position-relative has-icon-left">
-<select type="text" list="Emp" name="Employee" id="first-name-icon"
-class="form-control" placeholder="Emp">
+<select type="text" name="Employee" list="Emp" id="first-name-icon"
+class="form-control"  placeholder="Emp">
 <option value="">Select Employee</option>
 
 @foreach ($users as $list)
@@ -117,20 +117,32 @@ class="form-control" placeholder="Emp">
 </tr>
 </thead>
 <tbody>
-{{--  @foreach($user as  $value)
+@foreach($user as  $value)
 
 
 <tr>
 
-    <th scope="row"> {{ $value->user->first_name ??'' }}</th>
-    <td>        </td>
+    <th scope="row"> {{ $value->user->first_name ?? '' }}</th>
+    @php $hours_get = App\Models\Attendence::where('user_id', $value->user_id)->sum('total_hours');
+
+                $hours = gmdate('H:i', $hours_get);
+
+                   $overtime= App\Models\Attendence::where('user_id',  $value->user_id)->sum(DB::raw("TIME_TO_SEC(overtime)"));
+                @endphp
+    <td>      {{  $hours }}</td>
+
+    <td>      {{  $overtime }}
+
+
+    </td>
+
     <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
-    <td><button type="button" atten="" total_hourse=""
-            class="btn btn-info btn-sm"><i
-                class="fa fa-fw fa-eye"></i></button></td>
+    <td><button type="button" atten="{{ $value->user_id }}" total_hourse="{{ $hours_get }}"  overtime={{ $overtime }}
+                class="btn btn-info btn-sm"><i
+                    class="fa fa-fw fa-eye"></i></button></td></td>
 
 </tr>
-@endforeach  --}}
+@endforeach
 
 
 </tbody>
@@ -255,6 +267,7 @@ class="form-control" placeholder="Emp">
  var total_hourse=$(this).attr('total_hourse');
 
                      var atten_id=$(this).attr('atten');
+                     var overtime=$(this).attr('overtime');
 
 
         //   alert(atten_id);
@@ -262,7 +275,7 @@ class="form-control" placeholder="Emp">
               url:"{{url('atten_get')}}",
               type:"get",
               data:{
-                  "atten_id":atten_id,"total_hourse":total_hourse
+                  "atten_id":atten_id,"total_hourse":total_hourse,"overtime":overtime
               },
               success: function (resutl) {
                 $('.department').html(resutl.department);

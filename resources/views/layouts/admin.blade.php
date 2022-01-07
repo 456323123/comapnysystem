@@ -78,6 +78,7 @@
 
 
     <!-- BEGIN: Vendor JS-->
+
     <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
@@ -108,6 +109,7 @@
 
     <!-- BEGIN: Page JS-->
     <script src="../../../app-assets/js/scripts/datatables/datatable.js"></script>
+
     <script>
     $(document).ready(function(){
         $("#contact").inputmask({ mask: "(999) 999-9999" });
@@ -188,28 +190,7 @@ $(":input").inputmask();
 
 
     @yield('js')
-    <script>
-        $('document').ready(function() {
-            //alert();
-        $('.btn-info').click(function() {
-            //alert();
-         var atten_id=$(this).attr('atten');
-        //   alert(atten_id);
-          $.ajax({
-              url:"{{url('atten_get')}}",
-              type:"get",
-              data:{
-                  "atten_id":atten_id
-              },
-              success: function (resutl) {
-                $('.department').html(resutl.department);
-                  $('.first_name').html(resutl.first_name);
-                  $('.work_hours').html(resutl.total_hours);
-              }
-          });
-         });
-        });
-        </script>
+  
 </body>
 <!-- END: Body-->
 

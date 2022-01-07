@@ -146,7 +146,7 @@
 
 </style>
 @section('content')
-
+{{-- <div id="time"></div> --}}
 
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-6">
@@ -176,6 +176,8 @@
                             <div class="col-6 border-top border-right d-flex align-items-between flex-column py-1">
                                 <form action="{{ url('employee/start-time') }}" method="post">
                                     @csrf
+                                                                         {{-- <input type="text" name="start_time_get" class="time"> --}}
+
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
                                     {{-- <div class="form-group">
@@ -215,6 +217,7 @@
                             </div>
                             <div class="col-6 border-top d-flex align-items-between flex-column py-1">
                                 <form action="{{ url('employee/end-time') }}" method="post">
+                                                                         {{-- <input type="text" name="start_time_get" class="time"> --}}
                                     @csrf
                                     @if (isset($start_time->id))
                                         <input type="hidden" name="atten_id" value="{{ $start_time->id }}">
@@ -247,8 +250,53 @@
             </div>
         </div>
     </div>
+
     </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
+           $(document).ready(function(){
+           });
+       function Timer() {
+    var dt = new Date()
+    if (dt.getHours() >= 12){
+        ampm = "PM";
+    } else {
+        ampm = "AM";
+    }
+    if (dt.getHours() < 10) {
+        hour = "0" + dt.getHours();
+    } else {
+        hour = dt.getHours();
+    }
+    if (dt.getMinutes() < 10) {
+        minute = "0" + dt.getMinutes();
+    } else {
+        minute = dt.getMinutes();
+    }
+    if (dt.getSeconds() < 10) {
+        second = "0" + dt.getSeconds();
+    } else {
+        second = dt.getSeconds();
+    }
+    if (dt.getHours() > 12) {
+        hour = dt.getHours() - 12;
+    } else {
+        hour = dt.getHours();
+    }
+    if (hour < 10) {
+        hour = "0" + hour;
+    } else {
+        hour = hour;
+    }
+      var time=  hour + ":" + minute + ":" + second + " " + ampm;
+
+    $('.time').val(time);
+    setTimeout("Timer()", 1000);
+}
+Timer();
+
         const secondHand = document.querySelector('.second-hand');
         const minsHand = document.querySelector('.min-hand');
         const hourHand = document.querySelector('.hour-hand');
@@ -273,4 +321,6 @@
 
         setDate();
     </script>
+
+
 @endsection

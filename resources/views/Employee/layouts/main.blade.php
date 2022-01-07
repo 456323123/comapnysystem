@@ -110,6 +110,7 @@
     <script src="../../../app-assets/js/scripts/datatables/datatable.js"></script>
     <script>
     $(document).ready(function(){
+        
         $("#contact").inputmask({ mask: "(999) 999-9999" });
 $(":input").inputmask();
                     $('.summernote').summernote({

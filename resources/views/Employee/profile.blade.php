@@ -3,7 +3,7 @@
     <?php
     use Carbon\Carbon;
     use App\Models\Attendence;
-    
+
     ?>
     <section id="basic-datatable">
         <div class="row">
@@ -15,7 +15,7 @@
                     <div class="card-content">
                         <div class="card-body card-dashboard">
                             <div class="col-md-6 offset-md-3">
-                                @if (session()->has('message'))
+                                {{-- @if (session()->has('message'))
                                     <div class="alert alert-success">
                                         {{ session('message') }}
                                     </div>
@@ -24,10 +24,10 @@
                                     <div class="alert alert-danger">
                                         {{ session('error') }}
                                     </div>
-                                @endif
+                                @endif --}}
                                 <form class="form-horizontal form-material mx-2" method="POST"
                                     action="{{ url('update_profile') }}" enctype="multipart/form-data">
-                                    @csrf 
+                                    @csrf
                                     @php
                                         $first_name=Auth::user()->first_name;
                                         $last_name=Auth::user()->last_name;
@@ -57,7 +57,7 @@
                                         <label for="first-name-icon">Image</label>
                                         <div class="position-relative has-icon-left">
                                             <input type="file" id="first-name-icon" class="form-control dropify"
-                                                name="photo" data-default-file="{{asset('uploads/employees')}}/{{$photo}}" placeholder="photo" required="">
+                                                name="photo" data-default-file="{{asset('uploads/employees')}}/{{$photo}}" placeholder="photo" >
                                             <div class="form-control-position">
                                                 <i class="feather icon-file"></i>
                                             </div>
@@ -110,4 +110,6 @@
         </div>
     </section>
     </div>
+
+   
 @endsection
