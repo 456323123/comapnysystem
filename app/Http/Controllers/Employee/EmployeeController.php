@@ -44,7 +44,7 @@ class EmployeeController extends Controller
 //     dd($totalDuration);
         $In_time_update=Attendence::find($atten_id);
         $todayDate = Carbon::now()->format('d-m-Y');
-        $c_time='03:20:10 PM';
+        $c_time='05:20:10 PM';
         //  $c_time=date('h:i:s A');
         $c_date=date('Y-m-d');
         $end_timee = date('h:i:s A', strtotime($c_time));

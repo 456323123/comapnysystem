@@ -19,7 +19,7 @@
 <label for="first-name-icon">Cycle</label>
 
 <div class="position-relative has-icon-left">
-<select class="form-control cycle" name="cycle" placeholder="Cycle">
+<select class="form-control cycle" name="cycle" placeholder="Cycle" required>
 <option value="">Select Cycle</option>
 
 @foreach ($threshold as $list)
@@ -38,7 +38,7 @@
 <div class="form-group">
 <label for="password-icon">Duration</label>
 <div class="position-relative has-icon-left">
-    <input type="date" id="date-input" class="form-control"
+    <input type="date" id="date-input" class="form-control" required
         name="start_date" placeholder="start date">
     <div class="form-control-position">
         <i class="feather icon-calendar "></i>
@@ -64,7 +64,7 @@
 
 <div class="position-relative has-icon-left">
 <select type="text"   name="DEPARTMENT" list="Weekly" id="first-name-icon"
-class="form-control" placeholder="Dept">
+class="form-control" placeholder="Dept" >
 <option value="">Select Department</option>
 
 @foreach ($department as $list)
@@ -164,7 +164,7 @@ class="form-control" placeholder="Emp">
 <div class="col-md-3 col-sm-6 col-xs-6">Employee: </div>
 <div class="col-md-3 col-sm-6 col-xs-6"><strong class="first_name">Name</strong></div>
 <div class="col-md-3 col-sm-6 col-xs-6">TRN: </div>
-<div class="col-md-3 col-sm-6 col-xs-6">NIS:</div>
+<div class="col-md-3 col-sm-6 col-xs-6 trn">0:</div>
 <div class="col-md-3 col-sm-6 col-xs-6">Work Hours: </div>
 <div class="col-md-3 col-sm-6 col-xs-6 work_hours">0.00</div>
 <div class="col-md-3 col-sm-6 col-xs-6">Reg Pay:</div>
@@ -270,6 +270,8 @@ class="form-control" placeholder="Emp">
                   $('.work_hours').html(resutl.total_hours);
                      $('.OTP').html('$'+resutl.orver_time_pay);
                     $('.hourly_rate').html('$'+resutl.hourly_rate);
+                                        $('.trn').html(resutl.trn);
+
                     $('.basichours').html(resutl.basichours);
             $('.totalbasichours').html('$'+resutl.totalbasichours);
 

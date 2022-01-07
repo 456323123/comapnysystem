@@ -131,10 +131,7 @@ class="form-control"  placeholder="Emp">
                 @endphp
     <td>      {{  $hours }}</td>
 
-    <td>      {{  $overtime }}
 
-
-    </td>
 
     <td><i class="fa fa-fw fa-check" style="color: green;"></i></td>
     <td><button type="button" atten="{{ $value->user_id }}" total_hourse="{{ $hours_get }}"  overtime={{ $overtime }}
@@ -161,7 +158,7 @@ class="form-control"  placeholder="Emp">
 <div class="col-md-3 col-sm-6 col-xs-6">Regular Hours: </div>
 <div class="col-md-3 col-sm-6 col-xs-6">8.00</div>
 <div class="col-md-3 col-sm-6 col-xs-6">Overtime Rate: </div>
-<div class="col-md-3 col-sm-6 col-xs-6 overtime OTP">$0</div>
+<div class="col-md-3 col-sm-6 col-xs-6 overtimrate">$0</div>
 <div class="col-md-3 col-sm-6 col-xs-6 ">Hourly Rate: </div>
 <div class="col-md-3 col-sm-6 col-xs-6 hourly_rate">$400.00</div>
 <div class="col-md-3 col-sm-6 col-xs-6">Bonus Rate: </div>
@@ -176,11 +173,16 @@ class="form-control"  placeholder="Emp">
 <div class="col-md-3 col-sm-6 col-xs-6">Employee: </div>
 <div class="col-md-3 col-sm-6 col-xs-6"><strong class="first_name">Name</strong></div>
 <div class="col-md-3 col-sm-6 col-xs-6">TRN: </div>
-<div class="col-md-3 col-sm-6 col-xs-6">NIS:</div>
+<div class="col-md-3 col-sm-6 col-xs-6 trn">0</div>
+<div class="col-md-3 col-sm-6 col-xs-6">NIS: </div>
+<div class="col-md-3 col-sm-6 col-xs-6 nis">0.00</div>
+<br>
+
 <div class="col-md-3 col-sm-6 col-xs-6">Work Hours: </div>
-<div class="col-md-3 col-sm-6 col-xs-6 work_hours">0.00</div>
+<div class="col-md-3 col-sm-6 col-xs-6 totalhors">0.00</div>
+
 <div class="col-md-3 col-sm-6 col-xs-6">Reg Pay:</div>
-<div class="col-md-3 col-sm-6 col-xs-6">$0.00</div>
+<div class="col-md-3 col-sm-6 col-xs-6 totalbasichourspay">$0.00</div>
 <div class="col-md-3 col-sm-6 col-xs-6 ">OT Pay:</div>
 <div class="col-md-3 col-sm-6 col-xs-6 OTP">$0.00</div>
 <div class="col-md-3 col-sm-6 col-xs-6">Bonus:</div>
@@ -204,26 +206,21 @@ class="form-control"  placeholder="Emp">
     <tr>
         <th>Basic Pay</th>
         <td class="basichours">0.00</td>
-        <td class="hourly_rate">$400.00</td>
-        <td class="totalbasichours">$0.00</td>
+        <td class="hourly_rate">$0.00</td>
+        <td class="totalbasichourspay">$0.00</td>
     </tr>
-    <tr>
-        <th>Attn.Inc</th>
-        <td>0.00</td>
-        <td>$1.00</td>
-        <td>$0.00</td>
-    </tr>
+
     <tr>
         <th>Overtime</th>
-        <td>0.00</td>
-        <td>$270.00</td>
-        <td>$0.00</td>
+        <td class="overtime">0.00</td>
+        <td class="overtimrate">$0.00</td>
+        <td class="totalovertime">$0.00</td>
     </tr>
     <tr>
         <th>Bonus</th>
         <td>Selected Duration</td>
-        <td>$0.00</td>
-        <td>$0.00</td>
+        <td class="rate">$0.00</td>
+        <td class="sumtotalbasicandovertinme">$0.00</td>
     </tr>
     <tr>
         <th colspan="3">Total</th>
@@ -280,12 +277,23 @@ class="form-control"  placeholder="Emp">
               success: function (resutl) {
                 $('.department').html(resutl.department);
                   $('.first_name').html(resutl.first_name);
-                  $('.work_hours').html(resutl.total_hours);
+                  $('.totalhors').html(resutl.totalhors);
                      $('.OTP').html('$'+resutl.orver_time_pay);
                     $('.hourly_rate').html('$'+resutl.hourly_rate);
-                    $('.basichours').html(resutl.basichours);
-            $('.totalbasichours').html('$'+resutl.totalbasichours);
+                                $('.trn').html('$'+resutl.trn);
+                                $('.nis').html(resutl.nis);
 
+                    $('.basichours').html(resutl.basic_pay);
+
+            $('.totalbasichours').html('$'+resutl.totalbasichours);
+                        $('.overtime').html(resutl.overtime);
+
+            $('.totalbasichourspay').html('$'+resutl.totalbasichourspay);
+            $('.totalovertime').html('$'+resutl.totalovertime);
+           var a= $('.overtimrate').html('$'+resutl.overtimrate);
+
+            $('.sumtotalbasicandovertinme').html('$'+resutl.sumtotalbasicandovertinme);
+            $('.rate').html('$'+resutl.rate);
 
 
 

@@ -106,22 +106,82 @@ class AdminController extends Controller
     {
         return view('Admin.employee.create');
     }
-
-    public function employeeStore(Request $request)
+ public function employeeStore(Request $request)
     {
         // dd($request->all());
 
         $user = User::where('email',$request->email)->first();
 
-            \Mail::to($user->email)->send(new TestMail($details));
-             $user = [
-                 'title' => 'user  Email and Password',
-                 'body' =>'Hi...'.$request->first_name.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
-             ];
+        if($user)
+        {
+            return back()->with('error','This user email already exists.');
+        }
+        else
+        {
+            $user= User::create(
+                [
+                'email' => $request->email,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'gender' => $request->gender,
+                'dob' => $request->dob,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'residence_address' => $request->residence_address,
+                'employment_status' => $request->employment_status,
+                'hire_date' => $request->hire_date,
+                'employee_id' => $request->employee_id,
+                'regular_hours' => $request->regular_hours,
+                'hourly_rate' => $request->hourly_rate,
+                'ot_rate' => $request->ot_rate,
+                'department' => $request->department,
+                'statutory_deductions' => $request->statutory_deductions,
+                'attn_inc_rate' => $request->attn_inc_rate,
+                'phone_number' => $request->phone_number,
+                'emergency_contact_name' => $request->emergency_contact_name,
+                'emergency_contact_number' => $request->emergency_contact_number,
+                'education' => $request->education,
+                'experience' => $request->experience,
+                'id_type' => $request->id_type,
+                'id_number' => $request->id_number,
+                'bank' => $request->bank,
+                'account_number' => $request->account_number,
+                'branch' => $request->branch,
+                'bank_photo' => 'kkk',
+                'trn' => $request->trn,
+                'nis' => $request->nis,
+                'user_role' => $request->user_role,
+            ]
+            );
+            if (request()->hasfile('photo')) {
+                $image = request()->file('photo');
+                $filename = time() . '.' . $image->getClientOriginalName();
+                $movedFile = $image->move('uploads/employees', $filename);
+                $user->photo = $filename;
+                $user->save();
+            } else {
+                $user->save();
+            }
+            $details = [
+                'title' => 'Email and Password',
+                'body' =>'Hi...'.$request->first_name.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
+            ];
+
+            \Mail::to($request->email)->send(new TestMail($details));
+
+            // $user = User::where('email', '_mainaccount@briway.uk')->first();
+
+            // \Mail::to($user->email)->send(new TestMail($details));
+            // $admin = [
+            //     'title' => 'user  Email and Password',
+            //     'body' =>'Hi...'.$request->first_name.'Your Email address : '.$request->email.''.'and Your password : ->  '. $request->password
+            // ];
 
 
             return redirect()->route('admin.employees')->with('message', 'Employee data saved successfully.');
+        }
     }
+
 
     public function employeeEdit($id)
     {
@@ -186,7 +246,7 @@ class AdminController extends Controller
         return redirect()->route('admin.employees')->with('message', 'Employee updated succeddfuly.');
     }
 
-    
+
 
     public function employeeShow($id)
     {
@@ -205,25 +265,25 @@ class AdminController extends Controller
       $user->update([
           'photo' => $imageName,
       ]);
-      $path=$image->move(public_path('uploads/employees'),$imageName);            
+      $path=$image->move(public_path('uploads/employees'),$imageName);
       }
-                
-    
-       
+
+
+
       $user->update([
       'first_name' => $request->first_name,
       'last_name' => $request->last_name,
-     
+
   ]);
- 
+
        if(isset($request->c_password))
        {
          $request->validate([
             'new_password' => 'required|min:8',
             'confirm_password' => 'required_with:password|same:new_password|min:8'
-               
+
         ]);
-        if(Hash::check($request->c_password,$user->password)) { 
+        if(Hash::check($request->c_password,$user->password)) {
                 $user->update([
             'password' => Hash::make($request->new_password),
         ]);
@@ -256,9 +316,9 @@ class AdminController extends Controller
             'amount' => 'required',
             'days' => 'required',
             'paid_by' => 'required'
-               
+
         ]);
-    
+
         //Threshold data save start
         $threshold=new Threshold();
         $threshold->year=$request->year;
@@ -270,7 +330,7 @@ class AdminController extends Controller
         session()->flash('success','Threshold successfully addedd!');
         return redirect('admin/threshold');
 
-      
+
     }
     public function edit_threshold(Request $request,$id)
     {
@@ -278,7 +338,7 @@ class AdminController extends Controller
         return view('Admin/edit_threshold',$edit_threshold);
 
     }
-    
+
     public function update_threshold(Request $request,$id)
     {
         $request->validate([
@@ -287,7 +347,7 @@ class AdminController extends Controller
             'amount' => 'required',
             'days' => 'required',
             'paid_by' => 'required'
-               
+
             ]);
         //Threshold data save start
         $threshold=Threshold::find($id);
@@ -300,7 +360,7 @@ class AdminController extends Controller
         session()->flash('success','Threshold successfully Updated!');
         return redirect('admin/threshold');
 
-      
+
     }
     public function delete_threshold(Request $request,$id)
     {
@@ -309,6 +369,6 @@ class AdminController extends Controller
         session()->flash('error','Threshold successfully Deleted!');
         return redirect('admin/threshold');
     }
-   
-    
+
+
 }

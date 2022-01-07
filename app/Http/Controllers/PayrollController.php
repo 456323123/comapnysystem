@@ -122,44 +122,53 @@ class PayrollController extends Controller
     }
     public function atten_get(Request $request)
     {
+                $user_id= $request->atten_id;
+
+        $atten_get=User::where('id',$user_id)->first();
+ $hourly_rate=$atten_get->hourly_rate;
+ $overtimr=$atten_get->ot_rate;
+
         $hT=$request->total_hourse;
               $oT=  $request->overtime;
 $basichourstime=$hT-$oT;
-// dd($basichourstime,$hT);
-        $user_id= $request->atten_id;
-        $get_signle_atten=Attendence::where('user_id',$user_id)->get();
-        $hours_get= Attendence::where('user_id', $user_id)->sum('total_hours');
-        $basichours= Attendence::where('user_id', $user_id)->sum(DB::raw("TIME_TO_SEC(work_time)"));
-                $atten_get=User::where('id',$user_id)->first();
- $hourly_rate=$atten_get->hourly_rate;
-
            $basichourss=gmdate("H:i", $basichourstime);
-           
-           $basich=gmdate("H", $basichours);
-                                 $basicm=gmdate("i", $basichours);
+           $totalhors=gmdate("H:i", $hT);
+           $h=gmdate("H", $basichourstime);
+                      $m=gmdate("i", $basichourstime);
+                      $overtime=gmdate("h:i", $oT);
+                      $oh=gmdate("h", $oT);
+                      $om=gmdate("i", $oT);
+           $divover=($overtimr/60)*$om;
 
-           $divh=($hourly_rate/60)*$basicm;
-
-$hormultple=$basich*$hourly_rate;
+$hormultple=$oh*$hourly_rate;
+$totalovertime=$hormultple+$divover;
+           $divh=($hourly_rate/60)*$m;
+$hormultple=$h*$hourly_rate;
 $totalbasichourspay=$hormultple+$divh;
-// dd($hourly_rate);
-        $overtime_get= Attendence::where('user_id', $user_id)->sum('overtime');
+$sumtotalbasicandovertinme=$totalbasichourspay+$totalovertime;
+// dd($basichourstime,$hT);
+$sum=ceil($sumtotalbasicandovertinme);
 
+        $user_id= $request->atten_id;
+        // $get_signle_atten=User::where('id',$user_id)->first();
+ $Nis=$atten_get->nis;
 
-        $overtime =gmdate("H:i", $overtime_get);
-        $hours =gmdate("H:i", $hours_get);
+$rate=$hourly_rate+$overtimr;
 
 
         $first_name=$atten_get->first_name;
         $dep_id=$atten_get->department;
         $ORP=$atten_get->ot_rate;
  $hourly_rate=$atten_get->hourly_rate;
+  $trn=$atten_get->trn;
+
         $department_get=Department::where('id',$dep_id)->select('department')->first();
         $department_name= $department_get->department;
         //echo $first_name;
         //return $department_get->department;
-       return response()->json(['department'=>$department_name,'first_name'=>$first_name,'total_hours'=>$hours,'orver_time_pay'=> $ORP,'hourly_rate'=>$hourly_rate,
-       'basichours'=>$basichourss,'totalbasichours'=>$totalbasichourspay]);
+       return response()->json(['department'=>$department_name,
+       'first_name'=>$first_name,'orver_time_pay'=> $ORP,'hourly_rate'=>$hourly_rate,'nis'=>$Nis, 'totalbasichourspay'=>$totalbasichourspay
+       ,'trn'=>$trn,'totalhors'=>$totalhors,'basic_pay'=>$basichourss,'overtimrate'=>$overtimr,'overtime'=>$overtime ,'totalovertime'=>$totalovertime,'sumtotalbasicandovertinme'=>$sum,'rate'=>$rate]);
         //dd($atten_get['department'],$dep_id,$atten_get->first_name);
     }
 }
